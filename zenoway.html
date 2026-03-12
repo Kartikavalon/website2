@@ -1,0 +1,1361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zenoway — Corporate Transport, Reimagined</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #050D1A;
+    --navy2: #0C1A30;
+    --navy3: #0F2040;
+    --teal: #00C9A7;
+    --teal-dim: #00a589;
+    --teal-glow: rgba(0,201,167,0.15);
+    --orange: #FF6B2C;
+    --orange-dim: #e05a20;
+    --text: #EEF2FF;
+    --text-dim: #7A90B8;
+    --text-mid: #A8BCDC;
+    --border: rgba(0,201,167,0.12);
+    --border-light: rgba(255,255,255,0.06);
+    --card: rgba(12,26,48,0.7);
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--navy);
+    color: var(--text);
+    overflow-x: hidden;
+    line-height: 1.6;
+  }
+
+  /* ─── BACKGROUND GRID ─── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(0,201,167,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,201,167,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+    z-index: 0;
+  }
+  body::after {
+    content: '';
+    position: fixed;
+    top: -40%;
+    right: -20%;
+    width: 700px;
+    height: 700px;
+    background: radial-gradient(circle, rgba(0,201,167,0.07) 0%, transparent 65%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ─── NAV ─── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 6vw;
+    height: 68px;
+    background: rgba(5,13,26,0.85);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border-light);
+  }
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+  }
+  .logo-icon {
+    width: 36px;
+    height: 36px;
+  }
+  .logo-text {
+    font-family: 'Sora', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--text);
+    letter-spacing: -0.5px;
+  }
+  .logo-text span { color: var(--teal); }
+  nav ul {
+    display: flex;
+    list-style: none;
+    gap: 32px;
+    align-items: center;
+  }
+  nav ul a {
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--text-dim);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  nav ul a:hover { color: var(--teal); }
+  .nav-cta {
+    background: var(--teal) !important;
+    color: var(--navy) !important;
+    padding: 8px 20px !important;
+    border-radius: 8px !important;
+    font-weight: 500 !important;
+    transition: background 0.2s, transform 0.15s !important;
+  }
+  .nav-cta:hover { background: var(--teal-dim) !important; transform: translateY(-1px); }
+  .hamburger { display: none; cursor: pointer; flex-direction: column; gap: 5px; }
+  .hamburger span { width: 22px; height: 2px; background: var(--text); border-radius: 2px; }
+
+  /* ─── HERO ─── */
+  #hero {
+    position: relative;
+    z-index: 1;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 120px 6vw 80px;
+  }
+  .hero-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+  }
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(0,201,167,0.1);
+    border: 1px solid rgba(0,201,167,0.25);
+    border-radius: 100px;
+    padding: 6px 16px 6px 8px;
+    font-size: 12px;
+    color: var(--teal);
+    font-weight: 500;
+    margin-bottom: 24px;
+    animation: fadeUp 0.6s ease both;
+  }
+  .badge-dot {
+    width: 8px; height: 8px;
+    background: var(--teal);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%,100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.8); }
+  }
+  .hero-h1 {
+    font-family: 'Sora', sans-serif;
+    font-size: clamp(36px, 4.5vw, 58px);
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -1.5px;
+    margin-bottom: 20px;
+    animation: fadeUp 0.6s 0.1s ease both;
+  }
+  .hero-h1 em {
+    font-style: normal;
+    color: var(--teal);
+    position: relative;
+  }
+  .hero-h1 em::after {
+    content: '';
+    position: absolute;
+    bottom: 2px; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--teal), transparent);
+    border-radius: 2px;
+  }
+  .hero-sub {
+    font-size: 16px;
+    color: var(--text-mid);
+    max-width: 440px;
+    line-height: 1.75;
+    margin-bottom: 36px;
+    animation: fadeUp 0.6s 0.2s ease both;
+  }
+  .hero-ctas {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+    animation: fadeUp 0.6s 0.3s ease both;
+  }
+  .btn-primary {
+    background: var(--teal);
+    color: var(--navy);
+    border: none;
+    padding: 14px 28px;
+    border-radius: 10px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.2s;
+  }
+  .btn-primary:hover { background: var(--teal-dim); transform: translateY(-2px); box-shadow: 0 12px 32px rgba(0,201,167,0.25); }
+  .btn-secondary {
+    background: transparent;
+    color: var(--text);
+    border: 1px solid var(--border-light);
+    padding: 14px 28px;
+    border-radius: 10px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.2s;
+  }
+  .btn-secondary:hover { border-color: var(--teal); color: var(--teal); transform: translateY(-2px); }
+  .hero-trust {
+    margin-top: 44px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    font-size: 13px;
+    color: var(--text-dim);
+    animation: fadeUp 0.6s 0.4s ease both;
+  }
+  .trust-avatars {
+    display: flex;
+  }
+  .avatar {
+    width: 30px; height: 30px;
+    border-radius: 50%;
+    border: 2px solid var(--navy);
+    margin-right: -8px;
+    font-size: 11px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Sora', sans-serif;
+  }
+
+  /* ─── HERO VISUAL ─── */
+  .hero-visual {
+    position: relative;
+    animation: fadeUp 0.8s 0.2s ease both;
+  }
+  .hero-card-main {
+    background: var(--navy2);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 28px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-card-main::before {
+    content: '';
+    position: absolute;
+    top: -1px; left: 20px; right: 20px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--teal), transparent);
+    border-radius: 2px;
+  }
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  .card-title { font-family: 'Sora', sans-serif; font-size: 13px; font-weight: 600; color: var(--text-dim); letter-spacing: 0.5px; text-transform: uppercase; }
+  .status-live {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: var(--teal);
+    background: rgba(0,201,167,0.1);
+    padding: 4px 10px;
+    border-radius: 100px;
+  }
+  .dot-live { width: 6px; height: 6px; border-radius: 50%; background: var(--teal); animation: pulse 1.5s infinite; }
+  .route-visual {
+    position: relative;
+    padding: 12px 0;
+    margin-bottom: 20px;
+  }
+  .route-line {
+    position: absolute;
+    left: 19px; top: 28px; bottom: 28px;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--teal) 0%, rgba(0,201,167,0.2) 100%);
+  }
+  .route-stop {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 20px;
+  }
+  .stop-dot {
+    width: 12px; height: 12px;
+    border-radius: 50%;
+    border: 2px solid var(--teal);
+    background: var(--navy2);
+    flex-shrink: 0;
+    position: relative;
+    z-index: 1;
+    margin-left: 14px;
+  }
+  .stop-dot.active { background: var(--teal); box-shadow: 0 0 0 4px rgba(0,201,167,0.2); }
+  .stop-dot.dest { border-color: var(--orange); }
+  .stop-info { flex: 1; }
+  .stop-name { font-size: 14px; font-weight: 500; }
+  .stop-time { font-size: 12px; color: var(--text-dim); }
+  .stop-badge {
+    font-size: 11px;
+    padding: 3px 10px;
+    border-radius: 100px;
+    font-weight: 500;
+  }
+  .badge-green { background: rgba(0,201,167,0.1); color: var(--teal); }
+  .badge-orange { background: rgba(255,107,44,0.1); color: var(--orange); }
+  .hero-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-top: 12px;
+  }
+  .hero-stat {
+    background: rgba(0,201,167,0.05);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px;
+    text-align: center;
+  }
+  .stat-val { font-family: 'Sora', sans-serif; font-size: 20px; font-weight: 700; color: var(--teal); }
+  .stat-lbl { font-size: 11px; color: var(--text-dim); margin-top: 2px; }
+  .floating-card {
+    position: absolute;
+    background: var(--navy2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 10px 14px;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    white-space: nowrap;
+    animation: float 4s ease-in-out infinite;
+  }
+  .fc-icon { font-size: 16px; }
+  .fc-text { color: var(--text-mid); }
+  .fc-text strong { color: var(--text); }
+  .fc-1 { top: -20px; right: -20px; animation-delay: 0s; }
+  .fc-2 { bottom: 60px; right: -30px; animation-delay: 2s; }
+  @keyframes float {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ─── TRUSTED BY ─── */
+  #logos {
+    position: relative;
+    z-index: 1;
+    padding: 32px 6vw;
+    border-top: 1px solid var(--border-light);
+    border-bottom: 1px solid var(--border-light);
+    background: rgba(12,26,48,0.4);
+  }
+  .logos-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 48px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .logos-label { font-size: 12px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px; white-space: nowrap; }
+  .logo-pill {
+    font-family: 'Sora', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-dim);
+    opacity: 0.5;
+    letter-spacing: 0.5px;
+    transition: opacity 0.2s;
+  }
+  .logo-pill:hover { opacity: 0.9; }
+
+  /* ─── SECTION COMMONS ─── */
+  section { position: relative; z-index: 1; }
+  .section-inner { max-width: 1100px; margin: 0 auto; padding: 100px 6vw; }
+  .section-tag {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--teal);
+    margin-bottom: 14px;
+  }
+  .section-h2 {
+    font-family: 'Sora', sans-serif;
+    font-size: clamp(28px, 3.5vw, 44px);
+    font-weight: 800;
+    letter-spacing: -1px;
+    line-height: 1.15;
+    margin-bottom: 14px;
+  }
+  .section-sub {
+    font-size: 16px;
+    color: var(--text-mid);
+    max-width: 520px;
+    line-height: 1.75;
+    margin-bottom: 56px;
+  }
+  .teal { color: var(--teal); }
+
+  /* ─── FEATURES ─── */
+  #features { background: linear-gradient(180deg, var(--navy) 0%, var(--navy2) 100%); }
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  .feat-card {
+    background: var(--card);
+    border: 1px solid var(--border-light);
+    border-radius: 16px;
+    padding: 28px;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+  .feat-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, var(--teal-glow) 0%, transparent 60%);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .feat-card:hover { border-color: var(--border); transform: translateY(-4px); box-shadow: 0 20px 48px rgba(0,0,0,0.3); }
+  .feat-card:hover::before { opacity: 1; }
+  .feat-card.highlight {
+    background: linear-gradient(135deg, rgba(0,201,167,0.08), rgba(12,26,48,0.95));
+    border-color: rgba(0,201,167,0.3);
+  }
+  .feat-icon {
+    width: 48px; height: 48px;
+    background: rgba(0,201,167,0.1);
+    border: 1px solid rgba(0,201,167,0.2);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    margin-bottom: 18px;
+  }
+  .feat-card.highlight .feat-icon { background: rgba(0,201,167,0.15); border-color: rgba(0,201,167,0.4); }
+  .feat-h3 {
+    font-family: 'Sora', sans-serif;
+    font-size: 17px;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  .feat-p { font-size: 14px; color: var(--text-mid); line-height: 1.7; }
+  .feat-tag {
+    display: inline-block;
+    margin-top: 14px;
+    font-size: 11px;
+    padding: 4px 10px;
+    border-radius: 100px;
+    background: rgba(0,201,167,0.1);
+    color: var(--teal);
+    font-weight: 500;
+  }
+
+  /* ─── HOW IT WORKS ─── */
+  #how { background: var(--navy2); }
+  .steps-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    position: relative;
+  }
+  .steps-grid::before {
+    content: '';
+    position: absolute;
+    top: 40px;
+    left: 10%;
+    width: 80%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--teal), transparent);
+    opacity: 0.3;
+  }
+  .step {
+    padding: 0 20px;
+    text-align: center;
+    position: relative;
+  }
+  .step-num {
+    width: 56px; height: 56px;
+    border-radius: 50%;
+    border: 1px solid rgba(0,201,167,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    font-family: 'Sora', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--teal);
+    background: rgba(0,201,167,0.08);
+    position: relative;
+    z-index: 1;
+  }
+  .step-h3 { font-family: 'Sora', sans-serif; font-size: 16px; font-weight: 600; margin-bottom: 8px; }
+  .step-p { font-size: 13px; color: var(--text-dim); line-height: 1.65; }
+
+  /* ─── SAFETY ─── */
+  #safety {
+    background: var(--navy);
+  }
+  .safety-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 100px 6vw;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+  .safety-visual {
+    background: var(--navy2);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 32px;
+    position: relative;
+    overflow: hidden;
+  }
+  .safety-visual::before {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 200px;
+    background: linear-gradient(to top, rgba(0,201,167,0.04), transparent);
+  }
+  .safety-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+  .shield-icon {
+    width: 40px; height: 40px;
+    background: rgba(0,201,167,0.1);
+    border-radius: 10px;
+    border: 1px solid rgba(0,201,167,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+  }
+  .safety-checks {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .safety-check {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 14px 16px;
+    background: rgba(0,0,0,0.2);
+    border-radius: 10px;
+    border: 1px solid rgba(255,255,255,0.04);
+  }
+  .check-icon {
+    width: 22px; height: 22px;
+    background: rgba(0,201,167,0.15);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    flex-shrink: 0;
+    color: var(--teal);
+    margin-top: 1px;
+  }
+  .check-title { font-size: 14px; font-weight: 500; margin-bottom: 2px; }
+  .check-sub { font-size: 12px; color: var(--text-dim); }
+  .safety-points { list-style: none; padding: 0; }
+  .safety-points li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 22px;
+  }
+  .sp-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--teal);
+    flex-shrink: 0;
+    margin-top: 7px;
+  }
+  .sp-text h4 { font-family: 'Sora', sans-serif; font-size: 16px; font-weight: 600; margin-bottom: 4px; }
+  .sp-text p { font-size: 14px; color: var(--text-mid); line-height: 1.65; }
+
+  /* ─── DIFFERENTIATORS ─── */
+  #why { background: var(--navy2); }
+  .diff-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+  .diff-card {
+    background: var(--navy);
+    border: 1px solid var(--border-light);
+    border-radius: 16px;
+    padding: 28px 32px;
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+    transition: border-color 0.25s;
+  }
+  .diff-card:hover { border-color: rgba(0,201,167,0.3); }
+  .diff-num {
+    font-family: 'Sora', sans-serif;
+    font-size: 36px;
+    font-weight: 800;
+    color: rgba(0,201,167,0.15);
+    line-height: 1;
+    min-width: 40px;
+  }
+  .diff-h3 { font-family: 'Sora', sans-serif; font-size: 16px; font-weight: 600; margin-bottom: 6px; }
+  .diff-p { font-size: 14px; color: var(--text-mid); line-height: 1.7; }
+
+  /* ─── PRICING ─── */
+  #pricing { background: var(--navy); }
+  .pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 8px;
+  }
+  .price-card {
+    background: var(--card);
+    border: 1px solid var(--border-light);
+    border-radius: 20px;
+    padding: 32px 28px;
+    position: relative;
+    transition: transform 0.25s;
+  }
+  .price-card:hover { transform: translateY(-4px); }
+  .price-card.popular {
+    background: linear-gradient(135deg, rgba(0,201,167,0.1), var(--navy2));
+    border-color: rgba(0,201,167,0.35);
+  }
+  .popular-badge {
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--teal);
+    color: var(--navy);
+    font-size: 11px;
+    font-weight: 700;
+    padding: 4px 16px;
+    border-radius: 100px;
+    white-space: nowrap;
+    font-family: 'Sora', sans-serif;
+  }
+  .plan-name {
+    font-family: 'Sora', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+  }
+  .plan-price {
+    font-family: 'Sora', sans-serif;
+    font-size: 36px;
+    font-weight: 800;
+    margin-bottom: 4px;
+  }
+  .plan-price sup { font-size: 18px; }
+  .plan-unit { font-size: 13px; color: var(--text-dim); margin-bottom: 24px; }
+  .plan-features { list-style: none; padding: 0; margin-bottom: 28px; }
+  .plan-features li {
+    font-size: 14px;
+    color: var(--text-mid);
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border-light);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .plan-features li::before {
+    content: '✓';
+    color: var(--teal);
+    font-weight: 700;
+    font-size: 13px;
+  }
+  .price-cta {
+    display: block;
+    text-align: center;
+    padding: 12px 20px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+  .cta-filled { background: var(--teal); color: var(--navy); }
+  .cta-filled:hover { background: var(--teal-dim); }
+  .cta-outline { border: 1px solid var(--border-light); color: var(--text); }
+  .cta-outline:hover { border-color: var(--teal); color: var(--teal); }
+
+  /* ─── CTA BAND ─── */
+  #cta-band {
+    background: linear-gradient(135deg, rgba(0,201,167,0.08) 0%, rgba(255,107,44,0.04) 100%);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 80px 6vw;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+  }
+  #cta-band::before {
+    content: '';
+    position: absolute;
+    top: -100px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 600px;
+    height: 300px;
+    background: radial-gradient(ellipse, rgba(0,201,167,0.08) 0%, transparent 70%);
+  }
+  .cta-h2 {
+    font-family: 'Sora', sans-serif;
+    font-size: clamp(28px, 3.5vw, 46px);
+    font-weight: 800;
+    letter-spacing: -1px;
+    margin-bottom: 16px;
+    position: relative;
+  }
+  .cta-sub { font-size: 16px; color: var(--text-mid); margin-bottom: 36px; max-width: 480px; margin-left: auto; margin-right: auto; position: relative; }
+  .cta-actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; position: relative; }
+
+  /* ─── FOOTER ─── */
+  footer {
+    position: relative;
+    z-index: 1;
+    background: var(--navy2);
+    padding: 56px 6vw 32px;
+    border-top: 1px solid var(--border-light);
+  }
+  .footer-grid {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 48px;
+    margin-bottom: 48px;
+  }
+  .footer-brand p {
+    font-size: 14px;
+    color: var(--text-dim);
+    margin-top: 12px;
+    max-width: 280px;
+    line-height: 1.7;
+  }
+  .footer-col h4 {
+    font-family: 'Sora', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: var(--text-dim);
+    margin-bottom: 16px;
+  }
+  .footer-col ul { list-style: none; padding: 0; }
+  .footer-col ul li { margin-bottom: 10px; }
+  .footer-col ul a {
+    font-size: 14px;
+    color: var(--text-dim);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .footer-col ul a:hover { color: var(--teal); }
+  .footer-bottom {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding-top: 24px;
+    border-top: 1px solid var(--border-light);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 13px;
+    color: var(--text-dim);
+  }
+  .footer-bottom a { color: var(--teal); text-decoration: none; }
+
+  /* ─── SCROLLBAR ─── */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--navy2); }
+  ::-webkit-scrollbar-thumb { background: rgba(0,201,167,0.25); border-radius: 3px; }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 960px) {
+    .hero-inner { grid-template-columns: 1fr; }
+    .features-grid { grid-template-columns: 1fr 1fr; }
+    .steps-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+    .steps-grid::before { display: none; }
+    .safety-inner { grid-template-columns: 1fr; }
+    .diff-grid { grid-template-columns: 1fr; }
+    .pricing-grid { grid-template-columns: 1fr; max-width: 400px; margin: 0 auto; }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+    nav ul { display: none; }
+    .hamburger { display: flex; }
+  }
+  @media (max-width: 600px) {
+    .features-grid { grid-template-columns: 1fr; }
+    .steps-grid { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+    .footer-bottom { flex-direction: column; gap: 8px; text-align: center; }
+  }
+
+  /* ─── SCROLL REVEAL ─── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: none;
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="logo">
+    <!-- LOGO SVG -->
+    <svg class="logo-icon" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect width="36" height="36" rx="9" fill="#00C9A7" fill-opacity="0.12"/>
+      <rect width="36" height="36" rx="9" stroke="#00C9A7" stroke-opacity="0.35" stroke-width="1"/>
+      <!-- Z letterform with road arrow -->
+      <path d="M9 11H27L11 25H27" stroke="#00C9A7" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+      <!-- Arrow head on the end of Z's bottom bar -->
+      <path d="M23 21.5L27 25L23 28.5" stroke="#00C9A7" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      <!-- Small motion dots -->
+      <circle cx="18" cy="18" r="1.2" fill="#00C9A7" fill-opacity="0.5"/>
+    </svg>
+    <span class="logo-text">Zeno<span>way</span></span>
+  </a>
+  <ul>
+    <li><a href="#features">Features</a></li>
+    <li><a href="#how">How it works</a></li>
+    <li><a href="#safety">Safety</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+    <li><a href="#cta-band" class="nav-cta">Get a demo</a></li>
+  </ul>
+  <div class="hamburger">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-inner">
+    <div class="hero-left">
+      <div class="hero-badge">
+        <div class="badge-dot"></div>
+        Now live in NCR — Gurugram · Noida · Delhi
+      </div>
+      <h1 class="hero-h1">
+        Corporate transport,<br>
+        <em>done right</em>.
+      </h1>
+      <p class="hero-sub">
+        Zenoway gives mid-size teams in NCR GPS-verified rides, real-time safety tracking, and transparent per-km billing — without the enterprise pricing of MoveInSync.
+      </p>
+      <div class="hero-ctas">
+        <a href="#cta-band" class="btn-primary">
+          Book a free demo
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <a href="#features" class="btn-secondary">
+          See features
+        </a>
+      </div>
+      <div class="hero-trust">
+        <div class="trust-avatars">
+          <div class="avatar" style="background:#1e3a5f;color:#5bb8f5;">RK</div>
+          <div class="avatar" style="background:#2a1f3d;color:#a78bfa;">PM</div>
+          <div class="avatar" style="background:#1a3020;color:#6ee7b7;">SA</div>
+          <div class="avatar" style="background:#3d1f1f;color:#fca5a5;">VG</div>
+        </div>
+        Trusted by 12 companies in beta · Launching Q2 2026
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <div class="hero-card-main">
+        <div class="card-header">
+          <span class="card-title">Today's fleet — Live</span>
+          <span class="status-live"><span class="dot-live"></span> 14 active</span>
+        </div>
+
+        <div class="route-visual">
+          <div class="route-line"></div>
+          <div class="route-stop">
+            <div class="stop-dot active"></div>
+            <div class="stop-info">
+              <div class="stop-name">Sector 18, Noida</div>
+              <div class="stop-time">Pickup · 8:32 AM</div>
+            </div>
+            <span class="stop-badge badge-green">Boarded</span>
+          </div>
+          <div class="route-stop">
+            <div class="stop-dot" style="border-color:#7A90B8;"></div>
+            <div class="stop-info">
+              <div class="stop-name">Sector 62, Noida</div>
+              <div class="stop-time">Pickup · 8:48 AM</div>
+            </div>
+            <span class="stop-badge badge-green">Boarded</span>
+          </div>
+          <div class="route-stop">
+            <div class="stop-dot dest"></div>
+            <div class="stop-info">
+              <div class="stop-name">DLF Cyber City, Gurugram</div>
+              <div class="stop-time">Drop · ETA 9:22 AM</div>
+            </div>
+            <span class="stop-badge badge-orange">En route</span>
+          </div>
+        </div>
+
+        <div class="hero-stats">
+          <div class="hero-stat">
+            <div class="stat-val">₹18.4</div>
+            <div class="stat-lbl">Verified /km</div>
+          </div>
+          <div class="hero-stat">
+            <div class="stat-val">97%</div>
+            <div class="stat-lbl">On-time rate</div>
+          </div>
+          <div class="hero-stat">
+            <div class="stat-val">0</div>
+            <div class="stat-lbl">Safety flags</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="floating-card fc-1">
+        <span class="fc-icon">🛡️</span>
+        <span class="fc-text"><strong>Safe drop OTP</strong> sent to Priya</span>
+      </div>
+      <div class="floating-card fc-2">
+        <span class="fc-icon">📍</span>
+        <span class="fc-text"><strong>Driver Rakesh</strong> on route</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LOGOS -->
+<div id="logos">
+  <div class="logos-inner">
+    <span class="logos-label">Designed for companies like</span>
+    <span class="logo-pill">INFOSYS</span>
+    <span class="logo-pill">HCL</span>
+    <span class="logo-pill">GENPACT</span>
+    <span class="logo-pill">WIPRO</span>
+    <span class="logo-pill">TECH MAHINDRA</span>
+    <span class="logo-pill">CONCENTRIX</span>
+  </div>
+</div>
+
+<!-- FEATURES -->
+<section id="features">
+  <div class="section-inner">
+    <span class="section-tag reveal">What we offer</span>
+    <h2 class="section-h2 reveal">Everything your team needs.<br><span class="teal">Nothing they don't.</span></h2>
+    <p class="section-sub reveal">Built for mid-size companies in NCR who need reliability and accountability — without paying enterprise SaaS prices.</p>
+
+    <div class="features-grid">
+      <div class="feat-card highlight reveal">
+        <div class="feat-icon">📍</div>
+        <h3 class="feat-h3">GPS-Verified Per-Km Billing</h3>
+        <p class="feat-p">Every rupee tied to actual distance driven. No inflated km claims, no disputes. Transparent invoices auto-generated at month end.</p>
+        <span class="feat-tag">Saves 15–35% vs fixed billing</span>
+      </div>
+      <div class="feat-card reveal">
+        <div class="feat-icon">🛡️</div>
+        <h3 class="feat-h3">Women's Night-Safety Protocol</h3>
+        <p class="feat-p">OTP-verified boarding and drop confirmation, IVR check-in calls, live tracking shared with HR — built-in compliance out of the box.</p>
+        <span class="feat-tag">Labour law compliant</span>
+      </div>
+      <div class="feat-card reveal">
+        <div class="feat-icon">🔄</div>
+        <h3 class="feat-h3">Flexible Hybrid Scheduling</h3>
+        <p class="feat-p">Not every employee comes in every day. Dynamic daily rosters, last-minute changes via WhatsApp, no rigid monthly contracts.</p>
+        <span class="feat-tag">Built for hybrid work</span>
+      </div>
+      <div class="feat-card reveal">
+        <div class="feat-icon">📊</div>
+        <h3 class="feat-h3">Live Admin Dashboard</h3>
+        <p class="feat-p">Your HR or admin team gets a real-time view of all active vehicles, ETAs, and trip logs. Export any report in one click.</p>
+        <span class="feat-tag">No app install needed</span>
+      </div>
+      <div class="feat-card reveal">
+        <div class="feat-icon">⚡</div>
+        <h3 class="feat-h3">EV-Ready Fleet Option</h3>
+        <p class="feat-p">Book electric vehicles for your eco-conscious team. Meets Delhi GRAP & future NCR fleet regulations. ESG reporting included.</p>
+        <span class="feat-tag">NCR compliant</span>
+      </div>
+      <div class="feat-card reveal">
+        <div class="feat-icon">🤝</div>
+        <h3 class="feat-h3">Dedicated Account Manager</h3>
+        <p class="feat-p">A real human you can WhatsApp. No helpdesk tickets. No call centre queues. Issues resolved in minutes, not days.</p>
+        <span class="feat-tag">Response SLA: 15 min</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="how">
+  <div class="section-inner">
+    <span class="section-tag reveal">Simple setup</span>
+    <h2 class="section-h2 reveal">Live in <span class="teal">72 hours</span>.</h2>
+    <p class="section-sub reveal">No months of onboarding. No IT integrations required. Just tell us your team size and we handle the rest.</p>
+
+    <div class="steps-grid">
+      <div class="step reveal">
+        <div class="step-num">1</div>
+        <h3 class="step-h3">Share your roster</h3>
+        <p class="step-p">Send us employee locations and shift timings via a simple Excel or Google Sheet. That's all we need to get started.</p>
+      </div>
+      <div class="step reveal">
+        <div class="step-num">2</div>
+        <h3 class="step-h3">We build the routes</h3>
+        <p class="step-p">Our team maps optimised routes, assigns verified drivers, and shares the plan with you for approval within 24 hours.</p>
+      </div>
+      <div class="step reveal">
+        <div class="step-num">3</div>
+        <h3 class="step-h3">Employees get notified</h3>
+        <p class="step-p">Each employee receives their driver details, pickup time, and a live tracking link — via WhatsApp or SMS. No app needed.</p>
+      </div>
+      <div class="step reveal">
+        <div class="step-num">4</div>
+        <h3 class="step-h3">You track & review</h3>
+        <p class="step-p">Your admin dashboard is live. Review trips, approve invoices, and request changes anytime — from your phone or laptop.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SAFETY -->
+<section id="safety">
+  <div class="safety-inner">
+    <div>
+      <span class="section-tag reveal">Safety-first</span>
+      <h2 class="section-h2 reveal">Your team's safety is <span class="teal">not a checkbox</span>.</h2>
+      <p class="section-sub reveal" style="margin-bottom:36px;">We built our safety stack specifically for the compliance requirements companies face in NCR — especially for women employees on late shifts.</p>
+
+      <ul class="safety-points">
+        <li class="reveal">
+          <div class="sp-dot"></div>
+          <div class="sp-text">
+            <h4>OTP-verified safe drop</h4>
+            <p>Driver must confirm employee has exited safely. HR is notified if OTP is not submitted within 5 minutes of scheduled drop.</p>
+          </div>
+        </li>
+        <li class="reveal">
+          <div class="sp-dot"></div>
+          <div class="sp-text">
+            <h4>IVR check-in calls</h4>
+            <p>Automated IVR calls to female employees on night duty rides. Distress triggers immediate alert to your HR contact.</p>
+          </div>
+        </li>
+        <li class="reveal">
+          <div class="sp-dot"></div>
+          <div class="sp-text">
+            <h4>Driver verification & tracking</h4>
+            <p>All drivers on-boarded with police verification, Aadhaar-linked profile, and live GPS tracking shared with the employee.</p>
+          </div>
+        </li>
+        <li class="reveal">
+          <div class="sp-dot"></div>
+          <div class="sp-text">
+            <h4>Incident response protocol</h4>
+            <p>24/7 incident response line. Every complaint is logged, investigated, and resolved with a written report within 24 hours.</p>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <div class="safety-visual reveal">
+      <div class="safety-header">
+        <div class="shield-icon">🛡️</div>
+        <div>
+          <div style="font-family:'Sora',sans-serif;font-size:15px;font-weight:600;">Safety Dashboard</div>
+          <div style="font-size:12px;color:var(--text-dim);">Last 30 days · All clear</div>
+        </div>
+      </div>
+      <div class="safety-checks">
+        <div class="safety-check">
+          <div class="check-icon">✓</div>
+          <div>
+            <div class="check-title">Safe drop confirmations</div>
+            <div class="check-sub">1,248 / 1,248 confirmed this month</div>
+          </div>
+        </div>
+        <div class="safety-check">
+          <div class="check-icon">✓</div>
+          <div>
+            <div class="check-title">Night duty IVR calls</div>
+            <div class="check-sub">342 automated calls · 100% connected</div>
+          </div>
+        </div>
+        <div class="safety-check">
+          <div class="check-icon">✓</div>
+          <div>
+            <div class="check-title">Driver background checks</div>
+            <div class="check-sub">All 28 active drivers verified</div>
+          </div>
+        </div>
+        <div class="safety-check">
+          <div class="check-icon">✓</div>
+          <div>
+            <div class="check-title">Route deviations flagged</div>
+            <div class="check-sub">2 flagged · 2 resolved · 0 open</div>
+          </div>
+        </div>
+        <div class="safety-check">
+          <div class="check-icon">✓</div>
+          <div>
+            <div class="check-title">Incidents reported</div>
+            <div class="check-sub" style="color:var(--teal);">0 incidents this month</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY ZENOWAY -->
+<section id="why">
+  <div class="section-inner">
+    <span class="section-tag reveal">Why us</span>
+    <h2 class="section-h2 reveal">Where the big players <span class="teal">fall short</span>.</h2>
+    <p class="section-sub reveal">MoveInSync and Routematic chase Fortune 500 logos. We're built for the 100–500 person company they ignore.</p>
+
+    <div class="diff-grid">
+      <div class="diff-card reveal">
+        <span class="diff-num">01</span>
+        <div>
+          <h3 class="diff-h3">No minimum fleet size</h3>
+          <p class="diff-p">Large platforms require 50+ employees to even quote. Zenoway works for companies with 20–500 employees — we grow with you.</p>
+        </div>
+      </div>
+      <div class="diff-card reveal">
+        <span class="diff-num">02</span>
+        <div>
+          <h3 class="diff-h3">Human-first, not SaaS-first</h3>
+          <p class="diff-p">You get a dedicated account manager on WhatsApp. Problems are solved with a phone call, not a 3-day ticket queue.</p>
+        </div>
+      </div>
+      <div class="diff-card reveal">
+        <span class="diff-num">03</span>
+        <div>
+          <h3 class="diff-h3">Transparent per-km pricing</h3>
+          <p class="diff-p">No opaque monthly packages. Every trip is billed on GPS-verified kilometres. You always know exactly what you're paying for.</p>
+        </div>
+      </div>
+      <div class="diff-card reveal">
+        <span class="diff-num">04</span>
+        <div>
+          <h3 class="diff-h3">Zero IT integration needed</h3>
+          <p class="diff-p">Large SaaS tools require IT sign-off and 6-week integration cycles. Zenoway works over WhatsApp and a browser — live in 72 hours.</p>
+        </div>
+      </div>
+      <div class="diff-card reveal">
+        <span class="diff-num">05</span>
+        <div>
+          <h3 class="diff-h3">Hybrid-native scheduling</h3>
+          <p class="diff-p">Most platforms assume everyone commutes daily. Zenoway handles 3-day hybrid rosters, ad-hoc changes, and shift variability natively.</p>
+        </div>
+      </div>
+      <div class="diff-card reveal">
+        <span class="diff-num">06</span>
+        <div>
+          <h3 class="diff-h3">NCR-specific compliance</h3>
+          <p class="diff-p">GRAP restrictions, Odd-Even rules, Women's Safety Act requirements — we track regulatory changes and update your fleet automatically.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing">
+  <div class="section-inner">
+    <span class="section-tag reveal">Pricing</span>
+    <h2 class="section-h2 reveal">Honest pricing.<br><span class="teal">No surprises.</span></h2>
+    <p class="section-sub reveal">All plans are billed on actual GPS-verified kilometres. No setup fees. No hidden charges.</p>
+
+    <div class="pricing-grid">
+      <div class="price-card reveal">
+        <div class="plan-name">Starter</div>
+        <div class="plan-price"><sup>₹</sup>16–19</div>
+        <div class="plan-unit">per verified km · 20–75 employees</div>
+        <ul class="plan-features">
+          <li>GPS-verified billing</li>
+          <li>Live employee tracking</li>
+          <li>WhatsApp coordination</li>
+          <li>Basic safety protocol</li>
+          <li>Monthly invoice export</li>
+        </ul>
+        <a href="#cta-band" class="price-cta cta-outline">Get started</a>
+      </div>
+
+      <div class="price-card popular reveal">
+        <div class="popular-badge">Most popular</div>
+        <div class="plan-name">Growth</div>
+        <div class="plan-price"><sup>₹</sup>14–17</div>
+        <div class="plan-unit">per verified km · 75–300 employees</div>
+        <ul class="plan-features">
+          <li>Everything in Starter</li>
+          <li>Women's night-safety stack</li>
+          <li>Admin web dashboard</li>
+          <li>Dedicated account manager</li>
+          <li>Hybrid schedule management</li>
+          <li>Driver compliance reports</li>
+        </ul>
+        <a href="#cta-band" class="price-cta cta-filled">Book a demo</a>
+      </div>
+
+      <div class="price-card reveal">
+        <div class="plan-name">Enterprise</div>
+        <div class="plan-price">Custom</div>
+        <div class="plan-unit">300+ employees · Multi-location</div>
+        <ul class="plan-features">
+          <li>Everything in Growth</li>
+          <li>Multi-office routing</li>
+          <li>EV fleet option</li>
+          <li>HRMS data export</li>
+          <li>SLA guarantee</li>
+          <li>Dedicated ops pod</li>
+        </ul>
+        <a href="#cta-band" class="price-cta cta-outline">Contact us</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BAND -->
+<div id="cta-band">
+  <h2 class="cta-h2">Ready to fix your <span class="teal">team's commute</span>?</h2>
+  <p class="cta-sub">Book a 30-minute demo. We'll show you exactly how Zenoway works for your office size, locations, and shift patterns.</p>
+  <div class="cta-actions">
+    <a href="mailto:hello@zenoway.co.in" class="btn-primary">
+      Book a free demo
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+    <a href="tel:+911800ZENOWAY" class="btn-secondary">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 3.5A1.5 1.5 0 013.5 2h1.28a.5.5 0 01.48.36l1 3.5a.5.5 0 01-.12.5l-1.2 1.2A8.02 8.02 0 008.4 11.05l1.2-1.2a.5.5 0 01.5-.12l3.5 1a.5.5 0 01.36.48v1.29A1.5 1.5 0 0112.5 14C6.7 14 2 9.3 2 3.5z" stroke="currentColor" stroke-width="1.3" fill="none"/></svg>
+      Call us
+    </a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a href="#" class="logo">
+        <svg class="logo-icon" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="36" height="36" rx="9" fill="#00C9A7" fill-opacity="0.12"/>
+          <rect width="36" height="36" rx="9" stroke="#00C9A7" stroke-opacity="0.35" stroke-width="1"/>
+          <path d="M9 11H27L11 25H27" stroke="#00C9A7" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M23 21.5L27 25L23 28.5" stroke="#00C9A7" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          <circle cx="18" cy="18" r="1.2" fill="#00C9A7" fill-opacity="0.5"/>
+        </svg>
+        <span class="logo-text">Zeno<span>way</span></span>
+      </a>
+      <p>Corporate transport done right, for mid-size teams across NCR. Transparent billing. Real-time safety. Human support.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Product</h4>
+      <ul>
+        <li><a href="#features">Features</a></li>
+        <li><a href="#safety">Safety</a></li>
+        <li><a href="#pricing">Pricing</a></li>
+        <li><a href="#">EV Fleet</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="#">About us</a></li>
+        <li><a href="#">Careers</a></li>
+        <li><a href="#">Blog</a></li>
+        <li><a href="#">Press</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="mailto:hello@zenoway.co.in">hello@zenoway.co.in</a></li>
+        <li><a href="#">Gurugram Office</a></li>
+        <li><a href="#">Noida Office</a></li>
+        <li><a href="#">Driver onboarding</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Zenoway Technologies Pvt. Ltd. · zenoway.co.in</span>
+    <span><a href="#">Privacy Policy</a> · <a href="#">Terms of Service</a></span>
+  </div>
+</footer>
+
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        const delay = Array.from(e.target.parentElement.children).indexOf(e.target) * 80;
+        setTimeout(() => e.target.classList.add('visible'), delay);
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  reveals.forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
