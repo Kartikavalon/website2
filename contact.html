@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Get a Quote — Zenoway</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--white:#fff;--bg:#F6F8FC;--bg2:#EEF2F8;--navy:#0B1F3A;--navy2:#1B3A5C;--teal:#00796B;--teal2:#009688;--teal3:#E0F2F1;--teal4:#B2DFDB;--orange:#E65100;--orange2:#FFF3E0;--text:#0B1F3A;--text2:#3E5676;--text3:#7A92AD;--border:#DDE4EE;--border2:#C5D3E8;--shadow:0 2px 14px rgba(11,31,58,.07);--shadow-md:0 8px 32px rgba(11,31,58,.11);--shadow-lg:0 20px 60px rgba(11,31,58,.14)}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;line-height:1.6}
+::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--teal4);border-radius:3px}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;height:70px;display:flex;align-items:center;justify-content:space-between;padding:0 5vw;background:rgba(255,255,255,.97);border-bottom:1px solid var(--border);box-shadow:var(--shadow);transition:box-shadow .3s}
+.logo-wrap{display:flex;align-items:center;gap:10px;text-decoration:none}
+.logo-name{font-family:'Sora',sans-serif;font-size:21px;font-weight:800;color:var(--navy);letter-spacing:-.5px}
+.logo-name span{color:var(--teal2)}
+.nav-links{display:flex;align-items:center;gap:28px;list-style:none}
+.nav-links a{font-size:14px;font-weight:500;color:var(--text2);text-decoration:none;transition:color .2s}
+.nav-links a:hover{color:var(--teal)}
+.nav-links a.active{color:var(--teal);font-weight:600}
+.nav-cta{background:var(--teal)!important;color:#fff!important;padding:9px 22px!important;border-radius:9px!important;font-weight:600!important;font-size:14px!important}
+.nav-cta:hover{background:var(--navy)!important;color:#fff!important}
+.hbg{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px}
+.hbg span{width:22px;height:2px;background:var(--navy);border-radius:2px;transition:.3s}
+
+/* HERO */
+.hero{padding:130px 5vw 90px;background:var(--white);position:relative;overflow:hidden}
+.hero::after{content:'';position:absolute;top:0;right:0;width:52%;height:100%;background:linear-gradient(135deg,var(--teal3) 0%,var(--bg) 70%);clip-path:polygon(10% 0,100% 0,100% 100%,0 100%);z-index:0}
+.hero-inner{max-width:1160px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center;position:relative;z-index:1}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;background:var(--teal3);border:1px solid var(--teal4);border-radius:100px;padding:5px 14px 5px 8px;font-size:12px;font-weight:600;color:var(--teal);margin-bottom:24px}
+.edot{width:7px;height:7px;border-radius:50%;background:var(--teal2);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+h1{font-family:'Sora',sans-serif;font-size:clamp(34px,4.2vw,58px);font-weight:800;line-height:1.08;letter-spacing:-2px;color:var(--navy);margin-bottom:22px}
+h1 em{font-style:normal;color:var(--teal2)}
+.hero-sub{font-size:17px;color:var(--text2);line-height:1.84;max-width:460px;margin-bottom:36px}
+.hero-sub strong{color:var(--navy)}
+.btns{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:44px}
+.btn-p{background:var(--teal);color:#fff;padding:14px 28px;border-radius:11px;font-size:15px;font-weight:600;text-decoration:none;display:inline-flex;align-items:center;gap:8px;border:2px solid var(--teal);transition:all .22s;font-family:'DM Sans',sans-serif}
+.btn-p:hover{background:var(--navy);border-color:var(--navy);transform:translateY(-2px);box-shadow:var(--shadow-md)}
+.btn-s{background:#fff;color:var(--navy);padding:14px 28px;border-radius:11px;font-size:15px;font-weight:600;text-decoration:none;display:inline-flex;align-items:center;gap:8px;border:2px solid var(--border2);transition:all .22s;font-family:'DM Sans',sans-serif}
+.btn-s:hover{border-color:var(--teal2);color:var(--teal);transform:translateY(-2px)}
+.trust-strip{display:flex;align-items:center;gap:12px;font-size:13px;color:var(--text3)}
+.avts{display:flex}
+.avt{width:30px;height:30px;border-radius:50%;border:2px solid #fff;margin-right:-8px;display:flex;align-items:center;justify-content:center;font-family:'Sora',sans-serif;font-size:10px;font-weight:700}
+
+/* DASHBOARD CARD */
+.dash-card{background:#fff;border:1px solid var(--border);border-radius:20px;padding:28px;box-shadow:var(--shadow-lg);position:relative}
+.dash-card::before{content:'';position:absolute;top:0;left:20px;right:20px;height:3px;background:linear-gradient(90deg,var(--teal2),#26A69A);border-radius:3px}
+.dc-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}
+.dc-lbl{font-family:'Sora',sans-serif;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--text3)}
+.live-badge{display:flex;align-items:center;gap:5px;font-size:11px;font-weight:600;color:var(--teal);background:var(--teal3);padding:4px 10px;border-radius:100px}
+.ldot{width:6px;height:6px;border-radius:50%;background:var(--teal2);animation:pulse 1.6s infinite}
+.route-wrap{position:relative;padding:4px 0;margin-bottom:18px}
+.rvline{position:absolute;left:21px;top:18px;bottom:18px;width:2px;background:linear-gradient(to bottom,var(--teal2),var(--teal4));border-radius:2px}
+.rstop{display:flex;align-items:center;gap:12px;margin-bottom:15px}
+.rdot{width:10px;height:10px;border-radius:50%;border:2px solid var(--teal2);background:#fff;flex-shrink:0;margin-left:16px;z-index:1;position:relative}
+.rdot.on{background:var(--teal2);box-shadow:0 0 0 4px var(--teal3)}
+.rdot.dest{border-color:var(--orange)}
+.rn{font-size:13px;font-weight:500;color:var(--navy)}
+.rt{font-size:11px;color:var(--text3);margin-top:1px}
+.rbadge{font-size:11px;font-weight:600;padding:3px 9px;border-radius:100px;white-space:nowrap}
+.rb-g{background:var(--teal3);color:var(--teal)}.rb-o{background:var(--orange2);color:var(--orange)}
+.stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.stat-box{background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:12px;text-align:center}
+.sv{font-family:'Sora',sans-serif;font-size:20px;font-weight:700;color:var(--teal)}
+.sl{font-size:10px;color:var(--text3);margin-top:2px}
+.fc{position:absolute;background:#fff;border:1px solid var(--border);border-radius:11px;padding:9px 13px;font-size:12px;display:flex;align-items:center;gap:8px;white-space:nowrap;box-shadow:var(--shadow);animation:fl 4s ease-in-out infinite}
+.fc strong{color:var(--navy)}.fc span{color:var(--text2)}
+.fc1{top:-16px;right:-12px}.fc2{bottom:60px;right:-20px;animation-delay:2s}
+@keyframes fl{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
+.hero-left>*{animation:fadeUp .65s ease both}
+.hero-left .eyebrow{animation-delay:.05s}.hero-left h1{animation-delay:.12s}
+.hero-left .hero-sub{animation-delay:.2s}.hero-left .btns{animation-delay:.28s}
+.hero-left .trust-strip{animation-delay:.36s}
+.hero-right{animation:fadeUp .8s .2s ease both}
+
+/* TICKER */
+.ticker{background:var(--navy);overflow:hidden;height:46px;display:flex;align-items:center}
+.tick-track{display:flex;gap:48px;animation:tick 32s linear infinite;white-space:nowrap;align-items:center}
+.tick-track:hover{animation-play-state:paused}
+@keyframes tick{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.ti{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:500;color:rgba(255,255,255,.5);flex-shrink:0}
+.ti svg{color:var(--teal2);flex-shrink:0}
+.tsep{width:4px;height:4px;border-radius:50%;background:rgba(255,255,255,.15);flex-shrink:0}
+
+/* SECTIONS */
+.sec{position:relative;z-index:1}
+.wrap{max-width:1160px;margin:0 auto;padding:96px 5vw}
+.wrap-sm{max-width:1160px;margin:0 auto;padding:72px 5vw}
+.sec-white{background:#fff}.sec-bg{background:var(--bg)}
+.stag{display:inline-block;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--teal);margin-bottom:14px}
+h2{font-family:'Sora',sans-serif;font-size:clamp(26px,3vw,44px);font-weight:800;letter-spacing:-1.2px;line-height:1.1;color:var(--navy);margin-bottom:14px}
+h2 span{color:var(--teal2)}
+.sub{font-size:16px;color:var(--text2);line-height:1.82;max-width:560px;margin-bottom:56px}
+
+/* NUMBERS */
+.nums{display:grid;grid-template-columns:repeat(4,1fr);gap:0;background:var(--border);border:1px solid var(--border);border-radius:18px;overflow:hidden}
+.nb{background:#fff;padding:36px 28px;position:relative;transition:background .2s}
+.nb:hover{background:var(--teal3)}
+.nb+.nb{border-left:1px solid var(--border)}
+.nv{font-family:'Sora',sans-serif;font-size:50px;font-weight:800;color:var(--teal);line-height:1;margin-bottom:8px}
+.nv sup{font-size:26px;vertical-align:super}
+.nl{font-family:'Sora',sans-serif;font-size:15px;font-weight:700;color:var(--navy);margin-bottom:5px}
+.ns{font-size:13px;color:var(--text3);line-height:1.55}
+
+/* FEATURE CARDS */
+.fg3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.fg2{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+.fg4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.card{background:#fff;border:1px solid var(--border);border-radius:18px;padding:32px;box-shadow:var(--shadow);transition:all .3s}
+.card:hover{box-shadow:var(--shadow-md);transform:translateY(-3px);border-color:var(--teal4)}
+.cicon{width:52px;height:52px;border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:24px;margin-bottom:18px;background:var(--teal3);border:1px solid var(--teal4)}
+h3{font-family:'Sora',sans-serif;font-size:17px;font-weight:700;color:var(--navy);margin-bottom:10px}
+.cp{font-size:14px;color:var(--text2);line-height:1.78}
+.ctag{display:inline-flex;align-items:center;gap:5px;margin-top:14px;font-size:11px;font-weight:600;padding:4px 11px;border-radius:100px;background:var(--teal3);color:var(--teal)}
+
+/* HOW IT WORKS */
+.step-card{background:#fff;border:1px solid var(--border);border-radius:18px;padding:32px;display:flex;gap:20px;transition:all .25s;box-shadow:var(--shadow)}
+.step-card:hover{border-color:var(--teal4);box-shadow:var(--shadow-md)}
+.snum{font-family:'Sora',sans-serif;font-size:44px;font-weight:800;color:var(--teal4);line-height:1;flex-shrink:0;min-width:52px}
+h3.sth{font-family:'Sora',sans-serif;font-size:17px;font-weight:700;color:var(--navy);margin-bottom:8px}
+.stp{font-size:14px;color:var(--text2);line-height:1.78}
+.spts{margin-top:14px;display:flex;flex-direction:column;gap:7px}
+.spt{display:flex;align-items:flex-start;gap:8px;font-size:13px;color:var(--text2)}
+.sptd{width:5px;height:5px;border-radius:50%;background:var(--teal2);flex-shrink:0;margin-top:6px}
+
+/* INDUSTRY CARDS */
+.ind-card{background:#fff;border:1px solid var(--border);border-radius:14px;padding:22px 18px;text-align:center;transition:all .25s;box-shadow:var(--shadow)}
+.ind-card:hover{border-color:var(--teal4);transform:translateY(-3px);box-shadow:var(--shadow-md)}
+.ind-icon{font-size:30px;margin-bottom:12px}
+h3.inh{font-family:'Sora',sans-serif;font-size:14px;font-weight:700;color:var(--navy);margin-bottom:6px}
+.inp{font-size:12px;color:var(--text3);line-height:1.6}
+
+/* TEAM TEASER / CRED */
+.logo-pill{display:inline-flex;align-items:center;gap:8px;background:var(--bg);border:1.5px solid var(--border);border-radius:10px;padding:9px 16px;font-family:'Sora',sans-serif;font-size:13px;font-weight:700;color:var(--text2);transition:all .2s;margin:0 6px 8px 0}
+.logo-pill:hover{border-color:var(--teal4);color:var(--teal);background:var(--teal3)}
+.logo-pill .dot{width:7px;height:7px;border-radius:50%;background:var(--teal2);flex-shrink:0}
+.cred-panel{background:#fff;border:1px solid var(--border);border-radius:20px;padding:36px;box-shadow:var(--shadow-md);position:relative;overflow:hidden}
+.cred-panel::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--teal2),#26A69A)}
+.cred-item{display:flex;align-items:flex-start;gap:14px;margin-bottom:22px;padding-bottom:22px;border-bottom:1px solid var(--border)}
+.cred-item:last-child{margin-bottom:0;padding-bottom:0;border-bottom:none}
+.cred-badge{min-width:52px;height:52px;border-radius:13px;background:var(--teal3);border:1px solid var(--teal4);display:flex;align-items:center;justify-content:center;font-family:'Sora',sans-serif;font-size:11px;font-weight:800;color:var(--teal);text-align:center;padding:0 4px;flex-shrink:0}
+.cred-title{font-size:14px;font-weight:700;color:var(--navy);margin-bottom:4px}
+.cred-sub{font-size:13px;color:var(--text3);line-height:1.55}
+
+/* VS */
+.vs-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:52px}
+.vs-card{background:#fff;border:1px solid var(--border);border-radius:18px;padding:28px;box-shadow:var(--shadow)}
+.vs-card.us{border-color:var(--teal4);background:linear-gradient(135deg,var(--teal3),#fff)}
+.vs-badge{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;padding:4px 12px;border-radius:100px;display:inline-block;margin-bottom:18px}
+.vsb-t{background:var(--bg2);color:var(--text3)}.vsb-u{background:var(--teal3);color:var(--teal)}
+.vs-list{list-style:none;padding:0}
+.vs-list li{display:flex;align-items:flex-start;gap:10px;margin-bottom:11px;font-size:14px;color:var(--text2);line-height:1.5}
+.vs-list li::before{content:'';width:18px;height:18px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0;margin-top:1px}
+.vs-card.them .vs-list li::before{content:'✗';background:#FEE8E8;color:#C0392B}
+.vs-card.us .vs-list li::before{content:'✓';background:var(--teal3);color:var(--teal)}
+
+/* CTA BAND */
+.cta-band{background:var(--navy);padding:88px 5vw;text-align:center;position:relative;overflow:hidden}
+.cta-band::before{content:'';position:absolute;top:-80px;left:50%;transform:translateX(-50%);width:600px;height:300px;background:radial-gradient(ellipse,rgba(0,150,136,.1) 0%,transparent 65%)}
+.cb-h{font-family:'Sora',sans-serif;font-size:clamp(26px,3vw,46px);font-weight:800;color:#fff;letter-spacing:-1px;margin-bottom:14px;position:relative}
+.cb-h span{color:var(--teal2)}
+.cb-s{font-size:16px;color:rgba(255,255,255,.55);margin-bottom:36px;max-width:500px;margin-left:auto;margin-right:auto;position:relative}
+.cb-acts{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;position:relative}
+.btn-w{background:#fff;color:var(--navy);padding:14px 28px;border-radius:11px;font-size:15px;font-weight:600;text-decoration:none;display:inline-flex;align-items:center;gap:8px;border:2px solid #fff;transition:all .22s;font-family:'DM Sans',sans-serif}
+.btn-w:hover{background:var(--teal2);color:#fff;border-color:var(--teal2);transform:translateY(-2px)}
+.btn-g{background:transparent;color:rgba(255,255,255,.75);padding:14px 28px;border-radius:11px;font-size:15px;font-weight:600;text-decoration:none;display:inline-flex;align-items:center;gap:8px;border:2px solid rgba(255,255,255,.25);transition:all .22s;font-family:'DM Sans',sans-serif}
+.btn-g:hover{border-color:var(--teal2);color:var(--teal2);transform:translateY(-2px)}
+
+/* FOOTER */
+footer{background:var(--navy);padding:64px 5vw 32px;border-top:1px solid rgba(255,255,255,.07)}
+.ft-grid{max-width:1160px;margin:0 auto;display:grid;grid-template-columns:2.2fr 1fr 1fr 1fr;gap:48px;margin-bottom:48px}
+.ft-brand p{font-size:14px;color:rgba(255,255,255,.4);margin-top:14px;max-width:280px;line-height:1.75}
+.ft-badges{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.ftb{background:rgba(0,150,136,.12);border:1px solid rgba(0,150,136,.22);border-radius:100px;padding:3px 10px;color:var(--teal2);font-size:11px;font-weight:500}
+.ft-col h4{font-family:'Sora',sans-serif;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;color:rgba(255,255,255,.3);margin-bottom:18px}
+.ft-col ul{list-style:none;padding:0}
+.ft-col ul li{margin-bottom:10px}
+.ft-col ul a{font-size:14px;color:rgba(255,255,255,.5);text-decoration:none;transition:color .2s}
+.ft-col ul a:hover{color:var(--teal2)}
+.ft-bottom{max-width:1160px;margin:0 auto;padding-top:24px;border-top:1px solid rgba(255,255,255,.08);display:flex;justify-content:space-between;align-items:center;font-size:13px;color:rgba(255,255,255,.3);flex-wrap:wrap;gap:8px}
+.ft-bottom a{color:var(--teal2);text-decoration:none}
+
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .6s ease,transform .6s ease}
+.reveal.in{opacity:1;transform:none}
+
+/* MOBILE */
+@media(max-width:960px){
+  .hero-inner,.team-2col{grid-template-columns:1fr}
+  .fc1,.fc2{display:none}
+  .fg3{grid-template-columns:1fr 1fr}
+  .nums{grid-template-columns:1fr 1fr}
+  .nb+.nb{border-left:none;border-top:1px solid var(--border)}
+  .steps-grid{grid-template-columns:1fr}
+  .vs-grid{grid-template-columns:1fr}
+  .ft-grid{grid-template-columns:1fr 1fr}
+  .nav-links{display:none}
+  .hbg{display:flex}
+  .fg4{grid-template-columns:1fr 1fr}
+}
+@media(max-width:600px){
+  .fg3,.fg2{grid-template-columns:1fr}
+  .fg4{grid-template-columns:1fr 1fr}
+  .ft-grid{grid-template-columns:1fr}
+  .ft-bottom{flex-direction:column;text-align:center}
+}
+</style>
+<style>
+.ph{background:var(--navy);padding:130px 5vw 72px;position:relative;overflow:hidden}
+.ph::after{content:'';position:absolute;top:-80px;right:-80px;width:500px;height:500px;background:radial-gradient(circle,rgba(0,150,136,.09) 0%,transparent 65%)}
+.phi{max-width:1160px;margin:0 auto;position:relative;z-index:1}
+.bread{font-size:13px;color:rgba(255,255,255,.4);margin-bottom:16px}
+.bread a{color:rgba(255,255,255,.5);text-decoration:none}
+.bread a:hover{color:var(--teal2)}
+h1.ph1{font-family:'Sora',sans-serif;font-size:clamp(28px,3.8vw,52px);font-weight:800;letter-spacing:-1.5px;line-height:1.1;color:#fff;margin-bottom:18px}
+h1.ph1 span{color:var(--teal2)}
+.phsub{font-size:17px;color:rgba(255,255,255,.58);line-height:1.82;max-width:620px}
+.cred-panel{background:#fff;border:1px solid var(--border);border-radius:20px;padding:36px;box-shadow:var(--shadow-md);position:relative;overflow:hidden}
+.cred-panel::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--teal2),#26A69A)}
+.cred-item{display:flex;align-items:flex-start;gap:14px;margin-bottom:22px;padding-bottom:22px;border-bottom:1px solid var(--border)}
+.cred-item:last-child{margin-bottom:0;padding-bottom:0;border-bottom:none}
+.cred-badge{min-width:52px;height:52px;border-radius:13px;background:var(--teal3);border:1px solid var(--teal4);display:flex;align-items:center;justify-content:center;font-family:'Sora',sans-serif;font-size:11px;font-weight:800;color:var(--teal);text-align:center;padding:0 4px;flex-shrink:0}
+.cred-title{font-size:14px;font-weight:700;color:var(--navy);margin-bottom:4px}
+.cred-sub{font-size:13px;color:var(--text3);line-height:1.55}
+.logo-pill{display:inline-flex;align-items:center;gap:8px;background:var(--bg);border:1.5px solid var(--border);border-radius:10px;padding:9px 16px;font-family:'Sora',sans-serif;font-size:13px;font-weight:700;color:var(--text2);transition:all .2s;margin:0 6px 8px 0}
+.logo-pill:hover{border-color:var(--teal4);color:var(--teal);background:var(--teal3)}
+.logo-pill .dot{width:7px;height:7px;border-radius:50%;background:var(--teal2);flex-shrink:0}
+.team-card{background:#fff;border:1px solid var(--border);border-radius:18px;padding:28px;box-shadow:var(--shadow);transition:all .25s}
+.team-card:hover{border-color:var(--teal4);box-shadow:var(--shadow-md)}
+.team-av{width:58px;height:58px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Sora',sans-serif;font-size:18px;font-weight:800;margin-bottom:16px;border:2px solid var(--teal4)}
+h3.tmh{font-family:'Sora',sans-serif;font-size:16px;font-weight:700;color:var(--navy);margin-bottom:3px}
+.tmr{font-size:12px;color:var(--teal);font-weight:600;margin-bottom:10px}
+.tmp{font-size:13px;color:var(--text2);line-height:1.72}
+.tm-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px}
+.tm-tag{font-size:11px;padding:3px 9px;border-radius:100px;background:var(--teal3);border:1px solid var(--teal4);color:var(--teal);font-weight:500}
+.faq-card{background:#fff;border:1px solid var(--border);border-radius:16px;padding:28px;box-shadow:var(--shadow);transition:all .25s}
+.faq-card:hover{border-color:var(--teal4);box-shadow:var(--shadow-md)}
+.form-card{background:#fff;border:1px solid var(--border);border-radius:20px;padding:40px;box-shadow:var(--shadow-lg);position:relative;overflow:hidden}
+.form-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--teal2),#26A69A)}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:600px){.form-row{grid-template-columns:1fr}}
+.fld label{display:block;font-size:13px;font-weight:700;color:var(--navy);margin-bottom:7px}
+.fld input,.fld select,.fld textarea{width:100%;background:var(--bg);border:1.5px solid var(--border);border-radius:10px;padding:12px 15px;font-family:'DM Sans',sans-serif;font-size:14px;color:var(--text);outline:none;transition:all .2s;resize:vertical}
+.fld input:focus,.fld select:focus,.fld textarea:focus{border-color:var(--teal2);background:#fff;box-shadow:0 0 0 3px var(--teal3)}
+.fld input::placeholder,.fld textarea::placeholder{color:var(--text3)}
+.fld select option{background:#fff;color:var(--text)}
+.submit-btn{width:100%;background:var(--teal);color:#fff;border:none;padding:16px;border-radius:11px;font-family:'Sora',sans-serif;font-size:15px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;transition:all .22s;margin-top:8px}
+.submit-btn:hover{background:var(--navy);transform:translateY(-2px);box-shadow:var(--shadow-md)}
+.success-msg{display:none;text-align:center;padding:28px;background:var(--teal3);border:1.5px solid var(--teal4);border-radius:14px;color:var(--teal);font-size:15px;font-weight:500;line-height:1.75}
+.ci{display:flex;align-items:center;gap:14px;padding:16px 18px;background:var(--bg);border:1.5px solid var(--border);border-radius:13px;text-decoration:none;transition:all .2s;margin-bottom:12px}
+.ci:hover{border-color:var(--teal4);background:var(--teal3)}
+.ci-icon{width:42px;height:42px;border-radius:11px;background:var(--teal3);border:1px solid var(--teal4);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.ci-label{font-size:11px;color:var(--text3);margin-bottom:2px}
+.ci-val{font-size:14px;font-weight:700;color:var(--navy)}
+.prom{display:flex;align-items:center;gap:10px;font-size:14px;color:var(--text2);margin-bottom:10px}
+.prom-dot{width:6px;height:6px;border-radius:50%;background:var(--teal2);flex-shrink:0}
+</style>
+</head>
+<body>
+<!-- NAV -->
+<nav id="nav">
+  <a href="index.html" class="logo-wrap">
+    <svg width="34" height="34" viewBox="0 0 34 34" fill="none">
+      <rect width="34" height="34" rx="9" fill="#00796B" fill-opacity=".12"/>
+      <rect width="34" height="34" rx="9" stroke="#009688" stroke-opacity=".4" stroke-width="1"/>
+      <path d="M7 11H27L10 23H27" stroke="#00796B" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M22 20L27 23.5L22 27" stroke="#009688" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+    </svg>
+    <span class="logo-name">Zeno<span>way</span></span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="features.html">Features</a></li>
+    <li><a href="safety.html">Safety</a></li>
+    <li><a href="team.html">Our Team</a></li>
+    <li><a href="contact.html" class="active" class="nav-cta">Get a Quote</a></li>
+  </ul>
+  <div class="hbg" id="hbg" onclick="toggleMenu()"><span></span><span></span><span></span></div>
+</nav>
+<div id="mob-menu" style="display:none;position:fixed;top:70px;left:0;right:0;background:#fff;border-bottom:1px solid var(--border);padding:20px 5vw;z-index:199;box-shadow:var(--shadow-md)">
+  <a href="index.html" style="display:block;padding:12px 0;font-size:16px;font-weight:600;color:var(--navy);text-decoration:none;border-bottom:1px solid var(--border)">Home</a>
+  <a href="features.html" style="display:block;padding:12px 0;font-size:16px;font-weight:600;color:var(--navy);text-decoration:none;border-bottom:1px solid var(--border)">Features</a>
+  <a href="safety.html" style="display:block;padding:12px 0;font-size:16px;font-weight:600;color:var(--navy);text-decoration:none;border-bottom:1px solid var(--border)">Safety</a>
+  <a href="team.html" style="display:block;padding:12px 0;font-size:16px;font-weight:600;color:var(--navy);text-decoration:none;border-bottom:1px solid var(--border)">Our Team</a>
+  <a href="contact.html" class="active" style="display:block;padding:12px 0;font-size:16px;font-weight:700;color:var(--teal);text-decoration:none">Get a Quote →</a>
+</div>
+
+<div class="ph">
+  <div class="phi">
+    <div class="bread"><a href="index.html">Home</a> / Get a Quote</div>
+    <h1 class="ph1">Every quote is built<br><span>around your office</span>.</h1>
+    <p class="phsub">We don't do off-the-shelf packages. Share your team details and we'll send you a custom route plan, vehicle recommendation, and cost breakdown within 24 hours — free, with no commitment required.</p>
+  </div>
+</div>
+
+<section class="sec sec-bg">
+  <div class="wrap">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:start" class="vs-grid" style="margin-top:0">
+      <div>
+        <span class="stag reveal">What happens next</span>
+        <h2 style="font-size:clamp(22px,2.4vw,34px)" class="reveal">From your enquiry<br><span>to fleet on road</span>.</h2>
+        <div style="display:flex;flex-direction:column;gap:14px;margin:28px 0" class="reveal">
+          <div style="background:#fff;border:1.5px solid var(--border);border-radius:13px;padding:18px;display:flex;gap:14px;align-items:flex-start;box-shadow:var(--shadow)">
+            <div style="width:36px;height:36px;border-radius:50%;background:var(--teal);color:#fff;display:flex;align-items:center;justify-content:center;font-family:'Sora',sans-serif;font-size:13px;font-weight:800;flex-shrink:0">1</div>
+            <div><div style="font-family:'Sora',sans-serif;font-size:14px;font-weight:700;color:var(--navy);margin-bottom:3px">You submit the form</div><div style="font-size:13px;color:var(--text3)">Takes 3 minutes. We review your requirements before calling.</div></div>
+          </div>
+          <div style="background:#fff;border:1.5px solid var(--border);border-radius:13px;padding:18px;display:flex;gap:14px;align-items:flex-start;box-shadow:var(--shadow)">
+            <div style="width:36px;height:36px;border-radius:50%;background:var(--teal);color:#fff;display:flex;align-items:center;justify-content:center;font-family:'Sora',sans-serif;font-size:13px;font-weight:800;flex-shrink:0">2</div>
+            <div><div style="font-family:'Sora',sans-serif;font-size:14px;font-weight:700;color:var(--navy);margin-bottom:3px">A founder calls you within 4 hours</div><div style="font-size:13px;color:var(--text3)">Not a sales rep — one of the co-founders. A real conversation about your actual fleet needs, no scripts.</div></div>
+          </div>
+          <div style="background:#fff;border:1.5px solid var(--border);border-radius:13px;padding:18px;display:flex;gap:14px;align-items:flex-start;box-shadow:var(--shadow)">
+            <div style="width:36px;height:36px;border-radius:50%;background:var(--teal);color:#fff;display:flex;align-items:center;justify-content:center;font-family:'Sora',sans-serif;font-size:13px;font-weight:800;flex-shrink:0">3</div>
+            <div><div style="font-family:'Sora',sans-serif;font-size:14px;font-weight:700;color:var(--navy);margin-bottom:3px">Custom route plan within 24 hours</div><div style="font-size:13px;color:var(--text3)">Route map, vehicle recommendations, cost breakdown, and safety protocol overlay — built for your specific team.</div></div>
+          </div>
+          <div style="background:#fff;border:1.5px solid var(--border);border-radius:13px;padding:18px;display:flex;gap:14px;align-items:flex-start;box-shadow:var(--shadow)">
+            <div style="width:36px;height:36px;border-radius:50%;background:var(--teal);color:#fff;display:flex;align-items:center;justify-content:center;font-family:'Sora',sans-serif;font-size:13px;font-weight:800;flex-shrink:0">4</div>
+            <div><div style="font-family:'Sora',sans-serif;font-size:14px;font-weight:700;color:var(--navy);margin-bottom:3px">If you proceed — live in 72 hours</div><div style="font-size:13px;color:var(--text3)">From contract sign to first vehicle on road. No IT setup, no long onboarding. Drivers briefed, employees notified, dashboard live.</div></div>
+          </div>
+        </div>
+
+        <a href="mailto:Onboard@zenoway.co.in" class="ci reveal">
+          <div class="ci-icon">✉️</div><div><div class="ci-label">Email us directly</div><div class="ci-val">Onboard@zenoway.co.in</div></div>
+        </a>
+        <a href="tel:+919650463811" class="ci reveal">
+          <div class="ci-icon">📞</div><div><div class="ci-label">Call or WhatsApp — 6 AM to 10 PM</div><div class="ci-val">+91-9650463811</div></div>
+        </a>
+
+        <div style="background:#fff;border:1px solid var(--border);border-radius:14px;padding:22px;margin-top:20px" class="reveal">
+          <div style="font-family:'Sora',sans-serif;font-size:14px;font-weight:700;color:var(--navy);margin-bottom:14px">What your quote will include</div>
+          <div class="prom"><span class="prom-dot"></span>Optimised route map for your employee locations</div>
+          <div class="prom"><span class="prom-dot"></span>Vehicle type and count recommendations with rationale</div>
+          <div class="prom"><span class="prom-dot"></span>Estimated monthly cost breakdown — clear and verifiable</div>
+          <div class="prom"><span class="prom-dot"></span>Safety protocol overlay for your shift patterns</div>
+          <div class="prom"><span class="prom-dot"></span>Timeline to go live and full onboarding plan</div>
+          <div class="prom"><span class="prom-dot"></span>No obligation, no minimum commitment required</div>
+        </div>
+      </div>
+
+      <div class="form-card reveal">
+        <div id="form-inner">
+          <div style="margin-bottom:24px">
+            <div style="font-family:'Sora',sans-serif;font-size:20px;font-weight:800;color:var(--navy);letter-spacing:-.4px;margin-bottom:6px">Tell us about your team</div>
+            <div style="font-size:14px;color:var(--text3)">We'll use this to build your custom route plan and quote.</div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:16px">
+            <div class="form-row">
+              <div class="fld"><label>Company name *</label><input type="text" id="f-company" placeholder="e.g. Acme Technologies" required></div>
+              <div class="fld"><label>Your name *</label><input type="text" id="f-name" placeholder="Full name" required></div>
+            </div>
+            <div class="form-row">
+              <div class="fld"><label>Work email *</label><input type="email" id="f-email" placeholder="you@company.com" required></div>
+              <div class="fld"><label>Phone / WhatsApp *</label><input type="tel" id="f-phone" placeholder="+91 98XXX XXXXX" required></div>
+            </div>
+            <div class="form-row">
+              <div class="fld"><label>Number of employees</label>
+                <select id="f-emp"><option value="">Select range</option><option>20–50</option><option>50–100</option><option>100–250</option><option>250–500</option><option>500+</option></select></div>
+              <div class="fld"><label>Primary office location</label>
+                <select id="f-loc"><option value="">Select</option><option>Gurugram — DLF Cyber City</option><option>Gurugram — Udyog Vihar</option><option>Gurugram — Sohna / Golf Course</option><option>Noida — Sector 62/63</option><option>Noida Expressway</option><option>Delhi — Aerocity</option><option>Delhi — Connaught Place</option><option>Multiple locations</option></select></div>
+            </div>
+            <div class="form-row">
+              <div class="fld"><label>Shift pattern</label>
+                <select id="f-shift"><option value="">Select</option><option>Standard 9-to-6</option><option>Hybrid 3-day roster</option><option>Multi-shift incl. night</option><option>24/7 rotating</option><option>Flexible / varied</option></select></div>
+              <div class="fld"><label>Current transport setup</label>
+                <select id="f-curr"><option value="">Select</option><option>No transport — starting fresh</option><option>Employees use Ola/Uber</option><option>Local vendor — unhappy</option><option>MoveInSync / Routematic</option><option>Own company vehicles</option><option>Mixed / other</option></select></div>
+            </div>
+            <div class="fld"><label>Anything specific you need</label>
+              <textarea id="f-notes" rows="3" placeholder="Women's night safety, EV preference, multi-location routing, executive transport, GRAP compliance..."></textarea></div>
+            <button class="submit-btn" onclick="submitForm()">Send enquiry — get quote in 24 hrs <svg width="18" height="18" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            <p style="font-size:12px;color:var(--text3);text-align:center">No obligation. No spam. A founder calls within 4 hours.</p>
+          </div>
+        </div>
+        <div class="success-msg" id="success-msg">✓ Enquiry received. A Zenoway founder will call you within 4 hours to discuss your requirements.<br><br>Your custom route plan and cost breakdown will be emailed within 24 hours.<br><br>For urgent matters, WhatsApp us directly at <strong>+91-9650463811</strong>.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec sec-white">
+  <div class="wrap">
+    <span class="stag reveal">Common questions</span>
+    <h2 class="reveal">Things companies usually<br><span>ask us first</span>.</h2>
+    <div class="fg2">
+      <div class="faq-card reveal"><h3 style="font-size:16px;margin-bottom:10px">How is Zenoway different from a local transport vendor?</h3><p class="cp">A local vendor gives you vehicles and a monthly bill with no audit trail. Zenoway gives you GPS-verified billing, a live admin dashboard, automated safety protocols, driver compliance monitoring, and a named account manager on WhatsApp. The accountability difference is significant — and so is the 15–35% cost saving from GPS per-km vs fixed-rate estimates.</p></div>
+      <div class="faq-card reveal"><h3 style="font-size:16px;margin-bottom:10px">How is Zenoway different from MoveInSync or Routematic?</h3><p class="cp">MoveInSync and Routematic are excellent for 500+ person enterprises with IT teams and 6-week rollout budgets. Zenoway works from 20 employees, goes live in 72 hours with no IT setup, and every account gets founder-level WhatsApp attention. We're built for the company size they don't focus on.</p></div>
+      <div class="faq-card reveal"><h3 style="font-size:16px;margin-bottom:10px">Do employees need to download an app?</h3><p class="cp">No. Employees interact entirely through WhatsApp — confirming attendance, tracking their driver live, and reporting issues. No app download, no new accounts, no logins. Our pilots showed 97% employee adoption for the WhatsApp workflow vs 40–60% for transport apps. We optimised for real-world adoption, not feature checklists.</p></div>
+      <div class="faq-card reveal"><h3 style="font-size:16px;margin-bottom:10px">How does the billing actually work?</h3><p class="cp">Every vehicle logs GPS position every 10 seconds. At month-end, your invoice is generated from the GPS log — not driver reports or odometer readings. Each line item links to a verifiable GPS route. The log is immutable, so there is no scope for inflated claims. If it wasn't driven, you don't pay for it.</p></div>
+      <div class="faq-card reveal"><h3 style="font-size:16px;margin-bottom:10px">What does the onboarding look like?</h3><p class="cp">You share your employee roster (Excel or WhatsApp). We deliver a route plan and cost breakdown in 24 hours. Once approved, we assign verified drivers, brief employees via WhatsApp, and activate your dashboard. First vehicle on road within 72 hours of sign-off. No IT team, no procurement cycle.</p></div>
+      <div class="faq-card reveal"><h3 style="font-size:16px;margin-bottom:10px">What happens if a driver doesn't show up?</h3><p class="cp">Your account manager is on WhatsApp from 6 AM. If a driver misses a pickup, you message — and within 15 minutes, a replacement is arranged or an alternative is coordinated. We track driver availability before each dispatch cycle, so most no-shows are caught the night before and pre-resolved. A person handles it — not a ticket system.</p></div>
+    </div>
+  </div>
+</section>
+
+<div class="cta-band">
+  <h2 class="cb-h">Still have questions?<br><span>Just call us.</span></h2>
+  <p class="cb-s">No sales script, no pitch deck. A real conversation about your team, your requirements, and whether Zenoway is the right fit for you.</p>
+  <div class="cb-acts">
+    <a href="tel:+919650463811" class="btn-w">📞 Call +91-9650463811</a>
+    <a href="mailto:Onboard@zenoway.co.in" class="btn-g">Email Onboard@zenoway.co.in →</a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="ft-grid">
+    <div>
+      <a href="index.html" class="logo-wrap">
+        <svg width="34" height="34" viewBox="0 0 34 34" fill="none"><rect width="34" height="34" rx="9" fill="#00796B" fill-opacity=".15"/><rect width="34" height="34" rx="9" stroke="#009688" stroke-opacity=".4" stroke-width="1"/><path d="M7 11H27L10 23H27" stroke="#009688" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M22 20L27 23.5L22 27" stroke="#009688" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+        <span class="logo-name" style="color:#fff">Zeno<span>way</span></span>
+      </a>
+      <p>Founded 2024 by IIT-IIM alumni with hands-on logistics experience from Mahindra, Tata, and other major Indian enterprises. GPS-verified, safety-first corporate fleet management for mid-size NCR teams.</p>
+      <div class="ft-badges"><span class="ftb">IIT Founded</span><span class="ftb">IIM Founded</span><span class="ftb">Est. 2024</span><span class="ftb">Mahindra Alumni</span><span class="ftb">Tata Alumni</span></div>
+    </div>
+    <div class="ft-col">
+      <h4>Services</h4>
+      <ul>
+        <li><a href="features.html">Employee transport</a></li>
+        <li><a href="safety.html">Women's safety stack</a></li>
+        <li><a href="features.html">EV fleet option</a></li>
+        <li><a href="features.html">Executive transport</a></li>
+        <li><a href="features.html">Route optimisation</a></li>
+      </ul>
+    </div>
+    <div class="ft-col">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="team.html">About us</a></li>
+        <li><a href="team.html">Our founders</a></li>
+        <li><a href="team.html">Our story</a></li>
+        <li><a href="contact.html">Careers</a></li>
+        <li><a href="contact.html">Driver onboarding</a></li>
+      </ul>
+    </div>
+    <div class="ft-col">
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="mailto:Onboard@zenoway.co.in">Onboard@zenoway.co.in</a></li>
+        <li><a href="tel:+919650463811">+91-9650463811</a></li>
+        <li><a href="contact.html">Get a custom quote</a></li>
+        <li><a href="contact.html">Gurugram office</a></li>
+        <li><a href="contact.html">Noida office</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="ft-bottom">
+    <span>© 2024–2026 Zenoway Technologies Pvt. Ltd. · zenoway.co.in</span>
+    <div class="ft-badges"><span class="ftb">IIT-IIM Founded</span><span class="ftb">Operating since 2024</span></div>
+    <span><a href="#">Privacy Policy</a> · <a href="#">Terms</a></span>
+  </div>
+</footer>
+<script>
+window.addEventListener('scroll',()=>document.getElementById('nav').style.boxShadow=window.scrollY>20?'0 4px 28px rgba(11,31,58,.13)':'0 2px 14px rgba(11,31,58,.07)');
+function toggleMenu(){const m=document.getElementById('mob-menu');m.style.display=m.style.display==='none'?'block':'none'}
+const obs=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){const sib=[...e.target.parentElement.querySelectorAll('.reveal')];setTimeout(()=>e.target.classList.add('in'),Math.min(sib.indexOf(e.target)*80,300));obs.unobserve(e.target)}})},{threshold:.1});
+
+function submitForm(){
+  const c=document.getElementById('f-company')?.value.trim();
+  const n=document.getElementById('f-name')?.value.trim();
+  const e=document.getElementById('f-email')?.value.trim();
+  const p=document.getElementById('f-phone')?.value.trim();
+  if(!c||!n||!e||!p){alert('Please fill in company name, your name, email, and phone.');return;}
+  document.getElementById('form-inner').style.display='none';
+  document.getElementById('success-msg').style.display='block';
+}
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
