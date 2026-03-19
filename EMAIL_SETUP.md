@@ -28,7 +28,7 @@
    - **Name:** `RESEND_API_KEY`
      **Value:** `re_xxxxxxxxxxxxx` (your API key from Step 1)
    - **Name:** `CONTACT_EMAIL`
-     **Value:** `Onboard@zenoway.co.in` (or your preferred email)
+     **Value:** `Onboard@mm.zenoway.co.in` (or your preferred email)
 5. Click "Save"
 
 ### Step 3: Redeploy
@@ -41,7 +41,7 @@
 1. Go to `zenoway.co.in/contact.html` (or just `zenoway.co.in`)
 2. Fill out the form
 3. Click "Send enquiry"
-4. You should receive an email at `Onboard@zenoway.co.in`
+4. You should receive an email at `Onboard@mm.zenoway.co.in`
 5. The user should get a confirmation email at their provided address
 
 ---
@@ -53,7 +53,7 @@
 - "Thank you" message on the website
 
 ### You receive:
-- Full quote request details at `Onboard@zenoway.co.in`
+- Full quote request details at `Onboard@mm.zenoway.co.in`
 - Original quote form submission
 
 ---
