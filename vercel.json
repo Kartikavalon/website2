@@ -12,7 +12,6 @@
     {
       "source": "/(.*)",
       "has": [{ "type": "host", "value": "www.zenoway.co.in" }],
-      "has2": [{ "type": "header", "key": "x-forwarded-proto", "value": "http" }],
       "destination": "https://www.zenoway.co.in/$1",
       "permanent": true
     }
