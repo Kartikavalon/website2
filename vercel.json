@@ -8,12 +8,6 @@
       "has": [{ "type": "host", "value": "zenoway.co.in" }],
       "destination": "https://www.zenoway.co.in/$1",
       "permanent": true
-    },
-    {
-      "source": "/(.*)",
-      "has": [{ "type": "host", "value": "www.zenoway.co.in" }],
-      "destination": "https://www.zenoway.co.in/$1",
-      "permanent": true
     }
   ]
 }
