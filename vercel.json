@@ -1,5 +1,20 @@
 {
   "buildCommand": "echo 'Static site - no build needed'",
   "outputDirectory": ".",
-  "trailingSlash": false
+  "trailingSlash": false,
+  "redirects": [
+    {
+      "source": "/(.*)",
+      "has": [{ "type": "host", "value": "zenoway.co.in" }],
+      "destination": "https://www.zenoway.co.in/$1",
+      "permanent": true
+    },
+    {
+      "source": "/(.*)",
+      "has": [{ "type": "host", "value": "www.zenoway.co.in" }],
+      "has2": [{ "type": "header", "key": "x-forwarded-proto", "value": "http" }],
+      "destination": "https://www.zenoway.co.in/$1",
+      "permanent": true
+    }
+  ]
 }
