@@ -6,427 +6,396 @@
 <title>Zenoway — Transport Pricing Calculator</title>
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
+/* ═══════════════════════════════════════════════════
+   DESIGN TOKENS — edit colours/fonts here
+═══════════════════════════════════════════════════ */
 :root {
-  --navy: #0B1F3A;
-  --navy2: #132A4E;
-  --navy3: #1C3A65;
-  --teal: #009688;
-  --teal2: #00BFA5;
-  --teal3: #E0F2F1;
-  --teal4: #B2DFDB;
-  --white: #FFFFFF;
-  --bg: #F0F4F8;
-  --bg2: #E8EDF3;
-  --text: #0B1F3A;
-  --text2: #3E5676;
-  --text3: #7A92AD;
-  --border: #D4DDE8;
-  --green: #00C853;
-  --green-bg: #E8F5E9;
-  --orange: #FF6D00;
+  --navy:      #0B1F3A;
+  --navy2:     #132A4E;
+  --teal:      #009688;
+  --teal2:     #00BFA5;
+  --teal3:     #E0F2F1;
+  --teal4:     #B2DFDB;
+  --bg:        #F0F4F8;
+  --bg2:       #E8EDF3;
+  --text:      #0B1F3A;
+  --text2:     #3E5676;
+  --text3:     #7A92AD;
+  --border:    #D4DDE8;
+  --green:     #00C853;
+  --green-bg:  #E8F5E9;
+  --orange:    #FF6D00;
   --orange-bg: #FFF3E0;
-  --red: #D50000;
-  --red-bg: #FFEBEE;
-  --shadow: 0 2px 16px rgba(11,31,58,.08);
+  --red:       #D50000;
+  --red-bg:    #FFEBEE;
+  --shadow:    0 2px 16px rgba(11,31,58,.08);
   --shadow-md: 0 6px 32px rgba(11,31,58,.13);
-  --shadow-lg: 0 16px 64px rgba(11,31,58,.18);
-  --radius: 16px;
+  --radius:    16px;
   --radius-sm: 10px;
 }
 
-*,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
-body {
-  font-family: 'DM Sans', sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  min-height: 100vh;
-  padding-bottom: 160px;
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:'DM Sans',sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  min-height:100vh;
+  padding-bottom:80px;
 }
-
-::-webkit-scrollbar { width: 5px; }
-::-webkit-scrollbar-track { background: var(--bg); }
-::-webkit-scrollbar-thumb { background: var(--teal4); border-radius: 3px; }
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--teal4);border-radius:3px}
 
 /* ── HEADER ── */
-.header {
-  background: var(--navy);
-  padding: 20px 32px;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  box-shadow: var(--shadow-md);
+.header{
+  background:var(--navy);
+  padding:10px 28px;
+  display:flex;
+  align-items:center;
+  gap:14px;
+  position:sticky;top:0;z-index:100;
+  box-shadow:var(--shadow-md);
 }
-.logo-icon {
-  width: 38px; height: 38px; border-radius: 10px;
-  background: rgba(0,191,165,.15); border: 1px solid rgba(0,191,165,.3);
-  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+.header-logo-img{
+  height:36px;
+  width:auto;
+  object-fit:contain;
+  /* Replace src with your logo path: <img src="logo.png"> */
 }
-.logo-name { font-family: 'Sora', sans-serif; font-size: 20px; font-weight: 800; color: #fff; }
-.logo-name span { color: var(--teal2); }
-.header-tag {
-  margin-left: auto;
-  background: rgba(0,191,165,.12); border: 1px solid rgba(0,191,165,.25);
-  color: var(--teal2); font-size: 11px; font-weight: 600;
-  padding: 4px 12px; border-radius: 100px; letter-spacing: .5px;
-  font-family: 'DM Mono', monospace;
+.header-logo-fallback{
+  display:flex;align-items:center;gap:10px;
 }
-
-/* ── PAGE LAYOUT ── */
-.page-wrap {
-  max-width: 820px;
-  margin: 0 auto;
-  padding: 36px 20px 0;
+.logo-icon{
+  width:34px;height:34px;border-radius:9px;
+  background:rgba(0,191,165,.15);border:1px solid rgba(0,191,165,.3);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
 }
-
-.page-title {
-  font-family: 'Sora', sans-serif;
-  font-size: 28px; font-weight: 800; color: var(--navy);
-  margin-bottom: 6px;
-}
-.page-sub { font-size: 14px; color: var(--text3); margin-bottom: 36px; }
-
-/* ── SECTION CARD ── */
-.card {
-  background: #fff;
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
-  margin-bottom: 20px;
-  overflow: hidden;
-}
-.card-head {
-  padding: 20px 24px 16px;
-  border-bottom: 1px solid var(--border);
-  display: flex; align-items: center; gap: 12px;
-}
-.card-step {
-  width: 30px; height: 30px; border-radius: 50%;
-  background: var(--navy); color: #fff;
-  font-family: 'Sora', sans-serif; font-size: 13px; font-weight: 700;
-  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
-}
-.card-title { font-family: 'Sora', sans-serif; font-size: 15px; font-weight: 700; color: var(--navy); }
-.card-sub { font-size: 12px; color: var(--text3); margin-top: 1px; }
-.card-body { padding: 24px; }
-
-/* ── FORM ELEMENTS ── */
-.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
-.form-row.three { grid-template-columns: 1fr 1fr 1fr; }
-.form-row.single { grid-template-columns: 1fr; }
-.form-group { display: flex; flex-direction: column; gap: 6px; }
-label {
-  font-size: 11px; font-weight: 700; color: var(--text3);
-  text-transform: uppercase; letter-spacing: .8px;
-}
-input[type="time"], input[type="number"], input[type="text"], select {
-  width: 100%;
-  background: var(--bg);
-  border: 1.5px solid var(--border);
-  border-radius: var(--radius-sm);
-  padding: 11px 14px;
-  font-size: 14px; font-family: 'DM Sans', sans-serif; color: var(--text);
-  outline: none; transition: all .2s;
-  appearance: none;
-}
-input:focus, select:focus {
-  border-color: var(--teal);
-  background: #fff;
-  box-shadow: 0 0 0 3px rgba(0,150,136,.1);
-}
-input[type="time"] { font-family: 'DM Mono', monospace; }
-select {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%237A92AD' stroke-width='2.5'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
-  background-repeat: no-repeat; background-position: right 14px center;
-  padding-right: 36px;
-  cursor: pointer;
+.logo-name{font-family:'Sora',sans-serif;font-size:18px;font-weight:800;color:#fff}
+.logo-name span{color:var(--teal2)}
+.header-tag{
+  margin-left:auto;
+  background:rgba(0,191,165,.12);border:1px solid rgba(0,191,165,.25);
+  color:var(--teal2);font-size:10px;font-weight:600;
+  padding:3px 10px;border-radius:100px;letter-spacing:.5px;
+  font-family:'DM Mono',monospace;white-space:nowrap;
 }
 
-/* ── TOGGLE (Solo travel) ── */
-.toggle-group { display: flex; align-items: center; gap: 10px; }
-.toggle-wrap {
-  position: relative; width: 44px; height: 24px;
-  background: var(--border); border-radius: 100px;
-  cursor: pointer; transition: background .2s; flex-shrink: 0;
+/* ── LAYOUT ── */
+.page-wrap{max-width:820px;margin:0 auto;padding:32px 20px 0}
+.page-title{font-family:'Sora',sans-serif;font-size:26px;font-weight:800;color:var(--navy);margin-bottom:5px}
+.page-sub{font-size:13px;color:var(--text3);margin-bottom:32px}
+
+/* ── CARD ── */
+.card{background:#fff;border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);margin-bottom:20px;overflow:hidden}
+.card-head{padding:18px 24px 14px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px}
+.card-step{width:28px;height:28px;border-radius:50%;background:var(--navy);color:#fff;font-family:'Sora',sans-serif;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.card-title{font-family:'Sora',sans-serif;font-size:14px;font-weight:700;color:var(--navy)}
+.card-sub{font-size:11px;color:var(--text3);margin-top:1px}
+.card-body{padding:22px 24px}
+
+/* ── FORMS ── */
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
+.form-row.three{grid-template-columns:1fr 1fr 1fr}
+.form-group{display:flex;flex-direction:column;gap:5px}
+label{font-size:10px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.8px}
+input[type="time"],input[type="number"],input[type="text"],input[type="email"],input[type="tel"],select{
+  width:100%;background:var(--bg);border:1.5px solid var(--border);
+  border-radius:var(--radius-sm);padding:10px 13px;
+  font-size:13px;font-family:'DM Sans',sans-serif;color:var(--text);
+  outline:none;transition:all .2s;appearance:none;
 }
-.toggle-wrap.on { background: var(--teal); }
-.toggle-knob {
-  position: absolute; top: 3px; left: 3px;
-  width: 18px; height: 18px; border-radius: 50%;
-  background: #fff; box-shadow: 0 1px 4px rgba(0,0,0,.18);
-  transition: transform .2s;
+input:focus,select:focus{border-color:var(--teal);background:#fff;box-shadow:0 0 0 3px rgba(0,150,136,.1)}
+input[type="time"]{font-family:'DM Mono',monospace}
+select{
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%237A92AD' stroke-width='2.5'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 13px center;padding-right:34px;cursor:pointer;
 }
-.toggle-wrap.on .toggle-knob { transform: translateX(20px); }
-.toggle-label { font-size: 13px; color: var(--text2); font-weight: 500; }
-.toggle-badge {
-  font-size: 10px; font-weight: 700; padding: 2px 8px;
-  border-radius: 100px; font-family: 'DM Mono', monospace;
+
+/* ── SHIFT PILLS ── */
+.shift-pills{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.shift-pill{
+  background:var(--teal3);border:1px solid var(--teal4);
+  border-radius:100px;padding:4px 13px;
+  font-size:11px;font-weight:600;color:var(--teal);
+  font-family:'DM Mono',monospace;
 }
-.toggle-badge.solo { background: #EDE7F6; color: #6200EA; }
-.toggle-badge.shared { background: var(--teal3); color: var(--teal); }
+.shift-pill.peak{background:#FFF3E0;border-color:#FFB74D;color:#E65100}
+
+/* ── PEAK TIMING INDICATOR ── */
+.peak-row{
+  display:flex;align-items:center;gap:10px;
+  background:var(--bg);border:1px solid var(--border);
+  border-radius:8px;padding:10px 14px;margin-top:12px;
+  font-size:12px;color:var(--text2);
+}
+.peak-bar-wrap{flex:1;background:var(--bg2);border-radius:100px;height:6px;position:relative}
+.peak-bar-fill{height:100%;border-radius:100px;transition:width .4s,background .4s}
+.peak-label{font-family:'DM Mono',monospace;font-size:11px;font-weight:600;min-width:80px;text-align:right}
+
+/* ── TOGGLE ── */
+.toggle-group{display:flex;align-items:center;gap:9px}
+.toggle-wrap{position:relative;width:40px;height:22px;background:var(--border);border-radius:100px;cursor:pointer;transition:background .2s;flex-shrink:0}
+.toggle-wrap.on{background:var(--teal)}
+.toggle-knob{position:absolute;top:3px;left:3px;width:16px;height:16px;border-radius:50%;background:#fff;box-shadow:0 1px 4px rgba(0,0,0,.18);transition:transform .2s}
+.toggle-wrap.on .toggle-knob{transform:translateX(18px)}
+.toggle-badge{font-size:10px;font-weight:700;padding:2px 7px;border-radius:100px;font-family:'DM Mono',monospace}
+.toggle-badge.solo{background:#EDE7F6;color:#6200EA}
+.toggle-badge.shared{background:var(--teal3);color:var(--teal)}
 
 /* ── CATEGORY CARD ── */
-.category-card {
-  background: var(--bg);
-  border: 1.5px solid var(--border);
-  border-radius: var(--radius-sm);
-  padding: 20px;
-  margin-bottom: 14px;
-  position: relative;
-  transition: border-color .2s, box-shadow .2s;
-  animation: slideIn .3s ease;
+.category-card{
+  background:var(--bg);border:1.5px solid var(--border);border-radius:var(--radius-sm);
+  padding:18px;margin-bottom:12px;position:relative;
+  transition:border-color .2s,box-shadow .2s;
+  animation:slideIn .3s ease;
 }
-@keyframes slideIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: none; } }
-.category-card:focus-within { border-color: var(--teal4); box-shadow: 0 0 0 3px rgba(0,150,136,.06); }
-
-.cat-header {
-  display: flex; align-items: center; gap: 10px;
-  margin-bottom: 16px;
-}
-.cat-num {
-  width: 26px; height: 26px; border-radius: 50%;
-  background: var(--navy2); color: #fff;
-  font-family: 'Sora', sans-serif; font-size: 11px; font-weight: 700;
-  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
-}
-.cat-name-input {
-  flex: 1; background: #fff; border: 1.5px solid var(--border);
-  border-radius: 8px; padding: 7px 12px;
-  font-size: 13px; font-weight: 600; color: var(--navy);
-  font-family: 'DM Sans', sans-serif; outline: none; transition: all .2s;
-}
-.cat-name-input:focus { border-color: var(--teal); box-shadow: 0 0 0 3px rgba(0,150,136,.08); }
-.cat-delete {
-  width: 28px; height: 28px; border-radius: 8px;
-  background: var(--red-bg); border: 1px solid rgba(213,0,0,.15);
-  display: flex; align-items: center; justify-content: center;
-  cursor: pointer; transition: all .2s; flex-shrink: 0;
-}
-.cat-delete:hover { background: var(--red); }
-.cat-delete:hover svg { stroke: #fff; }
-.cat-delete svg { width: 13px; height: 13px; stroke: var(--red); transition: stroke .2s; }
-
-.cat-fields { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; align-items: end; }
+@keyframes slideIn{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:none}}
+.category-card:focus-within{border-color:var(--teal4);box-shadow:0 0 0 3px rgba(0,150,136,.06)}
+.cat-header{display:flex;align-items:center;gap:9px;margin-bottom:14px}
+.cat-num{width:24px;height:24px;border-radius:50%;background:var(--navy2);color:#fff;font-family:'Sora',sans-serif;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.cat-name-input{flex:1;background:#fff;border:1.5px solid var(--border);border-radius:8px;padding:6px 11px;font-size:13px;font-weight:600;color:var(--navy);font-family:'DM Sans',sans-serif;outline:none;transition:all .2s}
+.cat-name-input:focus{border-color:var(--teal);box-shadow:0 0 0 3px rgba(0,150,136,.08)}
+.cat-delete{width:26px;height:26px;border-radius:7px;background:var(--red-bg);border:1px solid rgba(213,0,0,.15);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s;flex-shrink:0}
+.cat-delete:hover{background:var(--red)}
+.cat-delete:hover svg{stroke:#fff}
+.cat-delete svg{width:12px;height:12px;stroke:var(--red);transition:stroke .2s}
+.cat-fields{display:grid;grid-template-columns:1fr 1fr 1fr;gap:11px;align-items:end}
+.cat-footer{margin-top:11px;padding-top:11px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.cat-formula{font-size:11px;color:var(--text3)}
+.cat-cost{font-family:'DM Mono',monospace;font-size:12px;font-weight:600;color:var(--teal)}
 
 /* ── ADD CATEGORY BTN ── */
-.add-cat-btn {
-  width: 100%; padding: 13px;
-  background: transparent; border: 1.5px dashed var(--teal4);
-  border-radius: var(--radius-sm); cursor: pointer;
-  display: flex; align-items: center; justify-content: center; gap: 8px;
-  font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 600;
-  color: var(--teal); transition: all .2s; margin-top: 4px;
+.add-cat-btn{
+  width:100%;padding:12px;background:transparent;border:1.5px dashed var(--teal4);
+  border-radius:var(--radius-sm);cursor:pointer;
+  display:flex;align-items:center;justify-content:center;gap:7px;
+  font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;
+  color:var(--teal);transition:all .2s;margin-top:2px;
 }
-.add-cat-btn:hover { background: var(--teal3); border-color: var(--teal); }
-.add-cat-btn svg { width: 16px; height: 16px; }
+.add-cat-btn:hover{background:var(--teal3);border-color:var(--teal)}
+.add-cat-btn svg{width:15px;height:15px}
 
-/* ── COUPON ── */
-.coupon-row {
-  display: flex; gap: 10px; align-items: flex-end;
+/* ── PRICING INFO BUTTON ── */
+.pricing-info-btn{
+  display:inline-flex;align-items:center;gap:6px;
+  background:var(--bg);border:1px solid var(--border);
+  border-radius:8px;padding:7px 13px;
+  font-size:12px;font-weight:600;color:var(--text2);
+  cursor:pointer;transition:all .2s;margin-top:12px;
+  text-decoration:none;
 }
-.coupon-input-wrap { flex: 1; }
-.coupon-input-wrap input {
-  text-transform: uppercase; font-family: 'DM Mono', monospace;
-  letter-spacing: 1px; font-size: 14px; font-weight: 500;
-}
-.coupon-btn {
-  padding: 11px 22px; background: var(--navy); color: #fff;
-  border: none; border-radius: var(--radius-sm);
-  font-family: 'Sora', sans-serif; font-size: 13px; font-weight: 700;
-  cursor: pointer; transition: all .2s; white-space: nowrap;
-}
-.coupon-btn:hover { background: var(--navy2); }
-.coupon-status {
-  margin-top: 10px; padding: 10px 14px;
-  border-radius: 8px; font-size: 12px; font-weight: 600;
-  display: none;
-}
-.coupon-status.valid { background: var(--green-bg); color: #1B5E20; border: 1px solid rgba(0,200,83,.2); }
-.coupon-status.invalid { background: var(--red-bg); color: var(--red); border: 1px solid rgba(213,0,0,.2); }
+.pricing-info-btn:hover{background:var(--teal3);border-color:var(--teal4);color:var(--teal)}
+.pricing-info-btn svg{width:13px;height:13px}
 
 /* ── PLAN SELECTOR ── */
-.plan-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
-.plan-opt {
-  border: 2px solid var(--border); border-radius: var(--radius-sm);
-  padding: 16px; cursor: pointer; transition: all .2s; text-align: center;
-  position: relative; background: var(--bg);
+.plan-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.plan-opt{
+  border:2px solid var(--border);border-radius:var(--radius-sm);
+  padding:14px 10px;cursor:pointer;transition:all .2s;text-align:center;
+  position:relative;background:var(--bg);
 }
-.plan-opt:hover { border-color: var(--teal4); background: var(--teal3); }
-.plan-opt.selected { border-color: var(--teal); background: var(--teal3); }
-.plan-opt.selected::after {
-  content: '✓'; position: absolute; top: 8px; right: 10px;
-  width: 18px; height: 18px; background: var(--teal); color: #fff;
-  border-radius: 50%; font-size: 10px; font-weight: 700;
-  display: flex; align-items: center; justify-content: center;
-  font-family: 'Sora', sans-serif; line-height: 18px;
+.plan-opt:hover{border-color:var(--teal4);background:var(--teal3)}
+.plan-opt.selected{border-color:var(--teal);background:var(--teal3)}
+.plan-opt.selected::after{
+  content:'✓';position:absolute;top:6px;right:8px;
+  width:16px;height:16px;background:var(--teal);color:#fff;
+  border-radius:50%;font-size:9px;font-weight:700;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Sora',sans-serif;line-height:16px;
 }
-.plan-name { font-family: 'Sora', sans-serif; font-size: 13px; font-weight: 700; color: var(--navy); }
-.plan-months { font-size: 11px; color: var(--text3); margin-top: 2px; }
-.plan-save {
-  margin-top: 6px; display: inline-block;
-  background: var(--orange-bg); color: var(--orange);
-  font-size: 10px; font-weight: 700; padding: 2px 8px;
-  border-radius: 100px; font-family: 'DM Mono', monospace;
-}
-
-/* ── STICKY COST PANEL ── */
-.cost-sticky {
-  position: fixed; bottom: 0; left: 0; right: 0;
-  background: var(--navy);
-  border-top: 1px solid rgba(255,255,255,.08);
-  padding: 16px 24px;
-  z-index: 200;
-  box-shadow: 0 -8px 40px rgba(11,31,58,.25);
-}
-.cost-sticky-inner {
-  max-width: 820px; margin: 0 auto;
-  display: grid; grid-template-columns: 1fr auto auto auto;
-  gap: 24px; align-items: center;
-}
-.cost-breakdown { display: flex; flex-direction: column; gap: 2px; }
-.cost-label-sm { font-size: 10px; color: rgba(255,255,255,.4); letter-spacing: .8px; font-family: 'DM Mono', monospace; text-transform: uppercase; }
-.cost-base-val { font-size: 13px; color: rgba(255,255,255,.6); }
-.cost-divider { width: 1px; background: rgba(255,255,255,.1); height: 40px; }
-.cost-item { text-align: center; }
-.cost-item-label { font-size: 10px; color: rgba(255,255,255,.35); letter-spacing: .5px; text-transform: uppercase; font-family: 'DM Mono', monospace; margin-bottom: 2px; }
-.cost-item-val { font-family: 'Sora', sans-serif; font-size: 15px; font-weight: 700; color: rgba(255,255,255,.75); }
-.cost-item-val.discount { color: #69F0AE; }
-.cost-item-val.gst { color: #FFD54F; }
-.cost-total-wrap { text-align: right; }
-.cost-total-label { font-size: 10px; color: rgba(255,255,255,.4); letter-spacing: .8px; font-family: 'DM Mono', monospace; text-transform: uppercase; margin-bottom: 3px; }
-.cost-total-val {
-  font-family: 'Sora', sans-serif; font-size: 26px; font-weight: 800;
-  color: var(--teal2); line-height: 1;
-}
-.cost-per { font-size: 11px; color: rgba(255,255,255,.3); margin-top: 2px; }
-
-/* ── EMPTY STATE ── */
-.empty-hint {
-  text-align: center; padding: 28px 20px;
-  color: var(--text3); font-size: 13px;
-}
-.empty-hint .emoji { font-size: 28px; margin-bottom: 8px; }
-
-/* ── SHIFT DISPLAY ── */
-.shift-pills { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
-.shift-pill {
-  background: var(--teal3); border: 1px solid var(--teal4);
-  border-radius: 100px; padding: 5px 14px;
-  font-size: 12px; font-weight: 600; color: var(--teal);
-  font-family: 'DM Mono', monospace;
+.plan-name{font-family:'Sora',sans-serif;font-size:12px;font-weight:700;color:var(--navy)}
+.plan-months{font-size:10px;color:var(--text3);margin-top:2px}
+.plan-save{
+  margin-top:5px;display:inline-block;
+  background:var(--orange-bg);color:var(--orange);
+  font-size:9px;font-weight:700;padding:2px 7px;
+  border-radius:100px;font-family:'DM Mono',monospace;
 }
 
-/* ── RATE NOTE ── */
-.rate-note {
-  background: var(--bg); border: 1px solid var(--border);
-  border-radius: 8px; padding: 12px 16px;
-  font-size: 12px; color: var(--text3); margin-top: 16px;
-  display: flex; gap: 8px; align-items: flex-start;
-}
-.rate-note strong { color: var(--text2); }
+/* ── COUPON ── */
+.coupon-row{display:flex;gap:10px;align-items:flex-end}
+.coupon-input-wrap{flex:1}
+.coupon-input-wrap input{text-transform:uppercase;font-family:'DM Mono',monospace;letter-spacing:1px;font-size:13px;font-weight:500}
+.coupon-btn{padding:10px 20px;background:var(--navy);color:#fff;border:none;border-radius:var(--radius-sm);font-family:'Sora',sans-serif;font-size:12px;font-weight:700;cursor:pointer;transition:all .2s;white-space:nowrap}
+.coupon-btn:hover{background:var(--navy2)}
+.coupon-status{margin-top:9px;padding:9px 13px;border-radius:8px;font-size:12px;font-weight:600;display:none}
+.coupon-status.valid{background:var(--green-bg);color:#1B5E20;border:1px solid rgba(0,200,83,.2)}
+.coupon-status.invalid{background:var(--red-bg);color:var(--red);border:1px solid rgba(213,0,0,.2)}
 
-@media(max-width:600px) {
-  .form-row { grid-template-columns: 1fr; }
-  .form-row.three { grid-template-columns: 1fr 1fr; }
-  .cat-fields { grid-template-columns: 1fr 1fr; }
-  .plan-grid { grid-template-columns: 1fr; }
-  .cost-sticky-inner { grid-template-columns: 1fr 1fr; }
-  .cost-divider { display: none; }
-  .cost-total-wrap { text-align: left; }
+/* ── CONTACT FORM ── */
+.contact-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-bottom:14px}
+.submit-btn{
+  width:100%;padding:14px;background:var(--teal);color:#fff;
+  border:none;border-radius:var(--radius-sm);
+  font-family:'Sora',sans-serif;font-size:14px;font-weight:700;
+  cursor:pointer;transition:all .22s;letter-spacing:.3px;
+}
+.submit-btn:hover{background:var(--teal2);transform:translateY(-1px);box-shadow:0 8px 24px rgba(0,150,136,.25)}
+.submit-btn:disabled{background:var(--border);color:var(--text3);transform:none;cursor:not-allowed}
+.submit-status{margin-top:12px;padding:11px 14px;border-radius:8px;font-size:13px;font-weight:600;display:none}
+.submit-status.ok{background:var(--green-bg);color:#1B5E20;border:1px solid rgba(0,200,83,.2)}
+.submit-status.err{background:var(--red-bg);color:var(--red);border:1px solid rgba(213,0,0,.2)}
+.submit-note{font-size:11px;color:var(--text3);margin-top:8px;text-align:center}
+
+/* ── DETAILS / FINE PRINT ── */
+.details-section{
+  background:#fff;border:1px solid var(--border);border-radius:var(--radius);
+  box-shadow:var(--shadow);margin-bottom:20px;overflow:hidden;
+}
+.details-toggle{
+  width:100%;display:flex;align-items:center;justify-content:space-between;
+  padding:16px 24px;background:none;border:none;cursor:pointer;
+  font-family:'Sora',sans-serif;font-size:13px;font-weight:600;color:var(--text2);
+  transition:background .2s;
+}
+.details-toggle:hover{background:var(--bg)}
+.details-toggle svg{width:16px;height:16px;transition:transform .3s;flex-shrink:0}
+.details-toggle.open svg{transform:rotate(180deg)}
+.details-body{
+  padding:0 24px;max-height:0;overflow:hidden;transition:max-height .4s ease,padding .3s;
+}
+.details-body.open{max-height:800px;padding:4px 24px 22px}
+.details-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:4px}
+.detail-item h4{font-size:12px;font-weight:700;color:var(--navy);margin-bottom:5px}
+.detail-item p{font-size:12px;color:var(--text3);line-height:1.6}
+.detail-item code{font-family:'DM Mono',monospace;font-size:11px;background:var(--bg);padding:2px 6px;border-radius:4px;color:var(--text2)}
+
+/* ── STICKY COST BAR ── */
+.cost-sticky{
+  position:fixed;bottom:0;left:0;right:0;
+  background:var(--navy);
+  border-top:1px solid rgba(255,255,255,.08);
+  padding:10px 24px;
+  z-index:200;
+  box-shadow:0 -6px 30px rgba(11,31,58,.22);
+}
+.cost-sticky-inner{
+  max-width:820px;margin:0 auto;
+  display:flex;align-items:center;gap:0;
+}
+.cost-seg{
+  display:flex;flex-direction:column;gap:1px;
+  padding:0 16px;border-right:1px solid rgba(255,255,255,.1);
+  flex:1;
+}
+.cost-seg:first-child{padding-left:0}
+.cost-seg:last-child{border-right:none;padding-right:0;flex:none;text-align:right}
+.cs-label{font-size:9px;color:rgba(255,255,255,.35);letter-spacing:.8px;text-transform:uppercase;font-family:'DM Mono',monospace}
+.cs-val{font-family:'Sora',sans-serif;font-size:14px;font-weight:700;color:#fff;line-height:1.2}
+.cs-val.discount{color:#69F0AE}
+.cs-val.gst{color:#FFD54F}
+.cs-val.total{font-size:20px;color:var(--teal2)}
+.cs-sub{font-size:10px;color:rgba(255,255,255,.3);margin-top:1px}
+
+@media(max-width:650px){
+  .form-row,.contact-grid{grid-template-columns:1fr 1fr}
+  .form-row.three,.cat-fields{grid-template-columns:1fr 1fr}
+  .plan-grid{grid-template-columns:1fr 1fr}
+  .cost-sticky-inner{flex-wrap:wrap;gap:8px}
+  .cost-seg{flex:1 1 40%;border-right:none;padding:0}
+  .details-grid{grid-template-columns:1fr}
 }
 </style>
 </head>
 <body>
 
-<!-- HEADER -->
+<!-- ═══════ HEADER ═══════ -->
 <header class="header">
-  <div class="logo-icon">
-    <svg width="20" height="20" viewBox="0 0 34 34" fill="none">
-      <path d="M6 11H28L10 23H28" stroke="#00BFA5" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
-      <path d="M22 19.5L28 23.5L22 27" stroke="#009688" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-    </svg>
+  <!--
+    TO USE YOUR LOGO:
+    Replace the fallback block below with:
+    <img src="logo.png" class="header-logo-img" alt="Zenoway">
+    (put logo.png in same folder as this HTML file)
+  -->
+  <div class="header-logo-fallback">
+    <div class="logo-icon">
+      <svg width="18" height="18" viewBox="0 0 34 34" fill="none">
+        <path d="M6 11H28L10 23H28" stroke="#00BFA5" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M22 19.5L28 23.5L22 27" stroke="#009688" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      </svg>
+    </div>
+    <span class="logo-name">Zeno<span>Way</span></span>
   </div>
-  <span class="logo-name">Zeno<span>Way</span></span>
   <div class="header-tag">PRICING CALCULATOR</div>
 </header>
 
 <div class="page-wrap">
   <div class="page-title">Get your transport quote</div>
-  <div class="page-sub">Configure your office timings, employee categories, and get an instant GST-inclusive price estimate.</div>
+  <div class="page-sub">Configure timings, employee zones, and get a live GST-inclusive estimate.</div>
 
-  <!-- STEP 1: OFFICE TIMINGS -->
+  <!-- ═══════ STEP 1: TIMINGS ═══════ -->
   <div class="card">
     <div class="card-head">
       <div class="card-step">1</div>
       <div>
         <div class="card-title">Office Timings</div>
-        <div class="card-sub">Set shift start and end times for your office</div>
+        <div class="card-sub">Earlier or later than peak hours = lower rates</div>
       </div>
     </div>
     <div class="card-body">
       <div class="form-row">
         <div class="form-group">
-          <label>Shift Start Time</label>
-          <input type="time" id="shift-start" value="09:00" oninput="updateShiftDisplay()">
+          <label>Shift Start (Pickup Time)</label>
+          <input type="time" id="shift-start" value="09:00" oninput="updateShift()">
         </div>
         <div class="form-group">
-          <label>Shift End Time</label>
-          <input type="time" id="shift-end" value="18:00" oninput="updateShiftDisplay()">
+          <label>Shift End (Drop Time)</label>
+          <input type="time" id="shift-end" value="18:00" oninput="updateShift()">
         </div>
       </div>
+
       <div class="shift-pills" id="shift-pills">
         <span class="shift-pill" id="pill-pickup">🚌 Pickup: 09:00 AM</span>
         <span class="shift-pill" id="pill-drop">🏠 Drop: 06:00 PM</span>
-        <span class="shift-pill" id="pill-duration">⏱ 9h shift</span>
+        <span class="shift-pill" id="pill-hours">⏱ 9h shift</span>
       </div>
+
+      <!-- Peak multiplier visual -->
+      <div id="peak-indicators" style="margin-top:14px;display:grid;grid-template-columns:1fr 1fr;gap:10px"></div>
+
       <div style="margin-top:16px;">
-        <label style="display:block;margin-bottom:8px;">Working Days</label>
-        <div style="display:flex;gap:8px;flex-wrap:wrap;" id="days-wrap">
-          <!-- Days rendered by JS -->
-        </div>
+        <label style="display:block;margin-bottom:7px;">Working Days per Week</label>
+        <div style="display:flex;gap:7px;flex-wrap:wrap;" id="days-wrap"></div>
       </div>
     </div>
   </div>
 
-  <!-- STEP 2: EMPLOYEE CATEGORIES -->
+  <!-- ═══════ STEP 2: CATEGORIES ═══════ -->
   <div class="card">
     <div class="card-head">
       <div class="card-step">2</div>
       <div>
         <div class="card-title">Employee Categories</div>
-        <div class="card-sub">Add groups by location, distance, or travel preference</div>
+        <div class="card-sub">Group employees by location zone or travel type</div>
       </div>
     </div>
     <div class="card-body">
-      <div id="categories-wrap">
-        <!-- Categories injected here -->
-      </div>
+      <div id="categories-wrap"></div>
       <button class="add-cat-btn" onclick="addCategory()">
         <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
         Add Employee Category
       </button>
-
-      <div class="rate-note">
-        <span>ℹ️</span>
-        <span><strong>How pricing works:</strong> Base rate ₹18/km per trip. Solo travel adds a 1.4× multiplier. Rates are per employee per month based on working days selected above.</span>
+      <div>
+        <a class="pricing-info-btn" href="#details-section" onclick="openDetails()">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          How is pricing calculated? ↓
+        </a>
       </div>
     </div>
   </div>
 
-  <!-- STEP 3: PLAN + COUPON -->
+  <!-- ═══════ STEP 3: PLAN + COUPON ═══════ -->
   <div class="card">
     <div class="card-head">
       <div class="card-step">3</div>
       <div>
-        <div class="card-title">Plan & Discount</div>
-        <div class="card-sub">Choose a commitment plan and apply coupon code</div>
+        <div class="card-title">Plan &amp; Discount</div>
+        <div class="card-sub">Longer commitments get better rates</div>
       </div>
     </div>
     <div class="card-body">
-      <label style="margin-bottom:10px;display:block;">Select Plan</label>
+      <label style="display:block;margin-bottom:9px;">Select Commitment Plan</label>
       <div class="plan-grid" id="plan-grid">
         <div class="plan-opt selected" data-plan="1" onclick="selectPlan(this,1)">
           <div class="plan-name">Monthly</div>
@@ -442,13 +411,18 @@ select {
           <div class="plan-months">6 months</div>
           <span class="plan-save">SAVE 10%</span>
         </div>
+        <div class="plan-opt" data-plan="12" onclick="selectPlan(this,12)">
+          <div class="plan-name">Yearly</div>
+          <div class="plan-months">12 months</div>
+          <span class="plan-save">SAVE 15%</span>
+        </div>
       </div>
 
-      <div style="margin-top:24px;">
-        <label style="margin-bottom:10px;display:block;">Coupon Code</label>
+      <div style="margin-top:22px;">
+        <label style="display:block;margin-bottom:8px;">Coupon Code</label>
         <div class="coupon-row">
           <div class="coupon-input-wrap">
-            <input type="text" id="coupon-input" placeholder="Enter coupon code e.g. ZENO10" maxlength="20" oninput="resetCoupon()">
+            <input type="text" id="coupon-input" placeholder="e.g. ZENO10" maxlength="20" oninput="resetCoupon()">
           </div>
           <button class="coupon-btn" onclick="applyCoupon()">Apply</button>
         </div>
@@ -457,322 +431,494 @@ select {
     </div>
   </div>
 
-</div>
+  <!-- ═══════ STEP 4: CONTACT ═══════ -->
+  <div class="card">
+    <div class="card-head">
+      <div class="card-step">4</div>
+      <div>
+        <div class="card-title">Get a Formal Quote</div>
+        <div class="card-sub">Our team will reach out within 24 hours</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="contact-grid">
+        <div class="form-group">
+          <label>Full Name *</label>
+          <input type="text" id="contact-name" placeholder="Rahul Sharma">
+        </div>
+        <div class="form-group">
+          <label>Work Email *</label>
+          <input type="email" id="contact-email" placeholder="hr@company.com">
+        </div>
+        <div class="form-group">
+          <label>Phone Number *</label>
+          <input type="tel" id="contact-phone" placeholder="+91 98765 43210">
+        </div>
+      </div>
+      <div class="form-group" style="margin-bottom:16px;">
+        <label>Company Name</label>
+        <input type="text" id="contact-company" placeholder="Acme Technologies Pvt. Ltd.">
+      </div>
+      <button class="submit-btn" id="submit-btn" onclick="submitQuote()">
+        📩 Submit &amp; Request Quote
+      </button>
+      <div class="submit-status" id="submit-status"></div>
+      <div class="submit-note">By submitting, you agree to be contacted by Zenoway regarding your transport requirements.</div>
+    </div>
+  </div>
 
-<!-- STICKY COST PANEL -->
+  <!-- ═══════ DETAILS / FINE PRINT ═══════ -->
+  <div class="details-section" id="details-section">
+    <button class="details-toggle" id="details-toggle" onclick="toggleDetails()">
+      <span>📖 Pricing Details &amp; Methodology</span>
+      <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+    </button>
+    <div class="details-body" id="details-body">
+      <div class="details-grid">
+        <div class="detail-item">
+          <h4>Base Rate Structure</h4>
+          <p>Every trip has a fixed base charge of <code>₹CONFIG.BASE_FIXED_COST</code> regardless of distance. On top of this, a per-km variable rate of <code>₹CONFIG.RATE_PER_KM/km</code> is applied. This ensures short-distance trips are viable for Zenoway to operate.</p>
+        </div>
+        <div class="detail-item">
+          <h4>Peak Hour Pricing</h4>
+          <p>Pickup peak is <code>CONFIG.PEAK_PICKUP_HOUR:00</code> and drop peak is <code>CONFIG.PEAK_DROP_HOUR:00</code>. The farther your office hours deviate from these peaks, the lower your multiplier (down to <code>CONFIG.MIN_PEAK_MULTIPLIER×</code>). At peak times the multiplier is <code>1.0×</code>.</p>
+        </div>
+        <div class="detail-item">
+          <h4>Solo vs Shared Travel</h4>
+          <p>Shared cab rides are calculated at standard rate. Solo (exclusive) rides carry a <code>CONFIG.SOLO_MULTIPLIER×</code> multiplier since the vehicle is reserved for a single employee and cannot carry others on the same route.</p>
+        </div>
+        <div class="detail-item">
+          <h4>Monthly Calculation</h4>
+          <p>Cost = <code>(BASE_FIXED + dist × RATE_PER_KM) × solo_mult × peak_mult × 2 trips/day × working_days_per_month × employees</code>. Working days = days/week × 4.33 weeks.</p>
+        </div>
+        <div class="detail-item">
+          <h4>Plan Discounts</h4>
+          <p>Monthly: no discount. Quarterly (3 months): 5% off. Half-Yearly (6 months): 10% off. Yearly (12 months): 15% off. Coupon discounts stack additively on top of plan discounts.</p>
+        </div>
+        <div class="detail-item">
+          <h4>GST</h4>
+          <p>GST at <code>CONFIG.GST_RATE×100%</code> is applied after all discounts on the net monthly amount. The total shown is the final payable amount inclusive of all taxes.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /page-wrap -->
+
+<!-- ═══════ STICKY COST BAR ═══════ -->
 <div class="cost-sticky">
   <div class="cost-sticky-inner">
-    <div class="cost-breakdown">
-      <div class="cost-label-sm">Monthly Base</div>
-      <div class="cost-base-val" id="sticky-base">₹0</div>
-      <div style="font-size:11px;color:rgba(255,255,255,.3);margin-top:2px;" id="sticky-emp-count">0 employees · 0 routes</div>
+    <div class="cost-seg">
+      <div class="cs-label">Base / Month</div>
+      <div class="cs-val" id="cs-base">₹0</div>
+      <div class="cs-sub" id="cs-empcount">0 employees</div>
     </div>
-    <div class="cost-divider"></div>
-    <div class="cost-item">
-      <div class="cost-item-label">Discount</div>
-      <div class="cost-item-val discount" id="sticky-discount">—</div>
+    <div class="cost-seg">
+      <div class="cs-label">Plan + Coupon</div>
+      <div class="cs-val discount" id="cs-discount">—</div>
+      <div class="cs-sub" id="cs-discount-pct"></div>
     </div>
-    <div class="cost-divider"></div>
-    <div class="cost-item">
-      <div class="cost-item-label">GST (18%)</div>
-      <div class="cost-item-val gst" id="sticky-gst">—</div>
+    <div class="cost-seg">
+      <div class="cs-label">After Discount</div>
+      <div class="cs-val" id="cs-after">₹0</div>
+      <div class="cs-sub" id="cs-planname">Monthly plan</div>
     </div>
-    <div class="cost-divider"></div>
-    <div class="cost-total-wrap">
-      <div class="cost-total-label">Total / Month</div>
-      <div class="cost-total-val" id="sticky-total">₹0</div>
-      <div class="cost-per" id="sticky-per-emp">Add employees to calculate</div>
+    <div class="cost-seg">
+      <div class="cs-label">GST (18%)</div>
+      <div class="cs-val gst" id="cs-gst">—</div>
+    </div>
+    <div class="cost-seg">
+      <div class="cs-label">Total / Month</div>
+      <div class="cs-val total" id="cs-total">₹0</div>
+      <div class="cs-sub" id="cs-peremp">—</div>
     </div>
   </div>
 </div>
 
 <script>
-// ──────────────────────────────────────────────
-//  STATE
-// ──────────────────────────────────────────────
+/* ═══════════════════════════════════════════════════
+   ██████████████████████████████████████████████████
+   CONFIG — EDIT ALL PRICING VALUES HERE
+   ██████████████████████████████████████████████████
+═══════════════════════════════════════════════════ */
+const CONFIG = {
+  // ── Base cost per trip (flat fee regardless of distance)
+  BASE_FIXED_COST: 80,          // ₹ per trip, per vehicle
+
+  // ── Variable rate on top of fixed
+  RATE_PER_KM: 18,              // ₹ per km
+
+  // ── Solo (exclusive) ride multiplier
+  SOLO_MULTIPLIER: 1.4,         // 1.0 = no change, 1.4 = 40% premium
+
+  // ── Peak hour for PICKUP (24h format, integer hour)
+  PEAK_PICKUP_HOUR: 10,         // 10 = 10:00 AM is most expensive pickup
+
+  // ── Peak hour for DROP (24h format, integer hour)
+  PEAK_DROP_HOUR: 18,           // 18 = 6:00 PM is most expensive drop
+
+  // ── How much discount for being off-peak (per hour away from peak)
+  PEAK_DISCOUNT_PER_HOUR: 0.04, // 4% cheaper per hour away from peak
+
+  // ── Minimum multiplier even if very off-peak (floor)
+  MIN_PEAK_MULTIPLIER: 0.70,    // 70% of standard rate at best
+
+  // ── GST rate
+  GST_RATE: 0.18,               // 18%
+
+  // ── Plan discounts (fraction, e.g. 0.05 = 5%)
+  PLAN_DISCOUNTS: { 1: 0, 3: 0.05, 6: 0.10, 12: 0.15 },
+
+  // ── Valid coupon codes
+  // Each coupon: { discount (fraction), desc, validPlans (array of months) }
+  COUPONS: {
+    'ZENO10':  { discount: 0.10, desc: '10% off for first 3-month plan!', validPlans: [3] },
+    'ZENOWAY': { discount: 0.10, desc: '10% off for first 3-month plan!', validPlans: [3] },
+    'FIRST10': { discount: 0.10, desc: '10% off for first 3-month plan!', validPlans: [3] },
+  },
+
+  // ── Contact / submission email
+  CONTACT_EMAIL: 'kartik.g@zenoway.co.in',
+};
+/* ═══════════════════════════════════════════════════
+   END CONFIG
+═══════════════════════════════════════════════════ */
+
+// ── STATE
 let categories = [];
 let catIdCounter = 0;
 let selectedPlan = 1;
 let couponApplied = false;
-let couponDiscount = 0; // fraction e.g. 0.10
-let planDiscount = 0;   // fraction
-let selectedDays = [1,2,3,4,5]; // Mon-Fri
+let couponDiscount = 0;
+let selectedDays = [1,2,3,4,5];
 
-const VALID_COUPONS = {
-  'ZENO10':  { discount: 0.10, desc: '10% off applied for first 3-month plan!', plans: [3] },
-  'ZENOWAY': { discount: 0.10, desc: '10% off applied for first 3-month plan!', plans: [3] },
-  'FIRST10': { discount: 0.10, desc: '10% off applied for first 3-month plan!', plans: [3] },
-};
-
-const BASE_RATE = 18; // ₹ per km
-const SOLO_MULTIPLIER = 1.4;
-const GST = 0.18;
-
-// ──────────────────────────────────────────────
-//  DAYS
-// ──────────────────────────────────────────────
+// ── DAYS
 const DAY_NAMES = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
 function renderDays() {
   const wrap = document.getElementById('days-wrap');
   wrap.innerHTML = '';
-  DAY_NAMES.forEach((d, i) => {
+  DAY_NAMES.forEach((d,i) => {
     const btn = document.createElement('button');
     btn.textContent = d;
-    btn.style.cssText = `
-      padding:7px 14px; border-radius:8px; border:1.5px solid var(--border);
-      font-family:'DM Sans',sans-serif; font-size:12px; font-weight:600;
-      cursor:pointer; transition:all .18s;
-      background:${selectedDays.includes(i)?'var(--navy)':'var(--bg)'};
-      color:${selectedDays.includes(i)?'#fff':'var(--text3)'};
-      border-color:${selectedDays.includes(i)?'var(--navy)':'var(--border)'};
-    `;
+    const on = selectedDays.includes(i);
+    btn.style.cssText = `padding:6px 13px;border-radius:7px;border:1.5px solid ${on?'var(--navy)':'var(--border)'};font-family:'DM Sans',sans-serif;font-size:11px;font-weight:600;cursor:pointer;transition:all .18s;background:${on?'var(--navy)':'var(--bg)'};color:${on?'#fff':'var(--text3)'};`;
     btn.onclick = () => {
       if (selectedDays.includes(i)) {
         if (selectedDays.length === 1) return;
-        selectedDays = selectedDays.filter(x => x !== i);
-      } else {
-        selectedDays.push(i);
-      }
-      renderDays();
-      recalculate();
+        selectedDays = selectedDays.filter(x=>x!==i);
+      } else { selectedDays.push(i); }
+      renderDays(); recalculate();
     };
     wrap.appendChild(btn);
   });
 }
 renderDays();
 
-// ──────────────────────────────────────────────
-//  SHIFT DISPLAY
-// ──────────────────────────────────────────────
+// ── TIME UTILS
 function fmtTime(val) {
   if (!val) return '--';
-  const [h, m] = val.split(':').map(Number);
-  const ampm = h >= 12 ? 'PM' : 'AM';
-  const hh = ((h % 12) || 12);
-  return `${hh}:${m.toString().padStart(2,'0')} ${ampm}`;
+  const [h,m] = val.split(':').map(Number);
+  const ampm = h>=12?'PM':'AM';
+  return `${((h%12)||12)}:${m.toString().padStart(2,'0')} ${ampm}`;
 }
-function updateShiftDisplay() {
+function timeToHour(val) {
+  if (!val) return 9;
+  const [h,m] = val.split(':').map(Number);
+  return h + m/60;
+}
+
+// ── PEAK MULTIPLIER
+function peakMultiplier(actualHour, peakHour) {
+  const diff = Math.abs(actualHour - peakHour);
+  const mult = 1 - diff * CONFIG.PEAK_DISCOUNT_PER_HOUR;
+  return Math.max(mult, CONFIG.MIN_PEAK_MULTIPLIER);
+}
+function pctLabel(mult) {
+  if (mult >= 0.995) return { text: 'Peak rate', color: '#E65100', bg: '#FFF3E0', border: '#FFB74D' };
+  if (mult >= 0.90)  return { text: `${Math.round((1-mult)*100)}% off peak`, color: '#1B5E20', bg: '#E8F5E9', border: '#A5D6A7' };
+  return { text: `${Math.round((1-mult)*100)}% off peak`, color: '#0D47A1', bg: '#E3F2FD', border: '#90CAF9' };
+}
+
+function updateShift() {
   const s = document.getElementById('shift-start').value;
   const e = document.getElementById('shift-end').value;
   document.getElementById('pill-pickup').textContent = `🚌 Pickup: ${fmtTime(s)}`;
-  document.getElementById('pill-drop').textContent = `🏠 Drop: ${fmtTime(e)}`;
+  document.getElementById('pill-drop').textContent   = `🏠 Drop: ${fmtTime(e)}`;
   if (s && e) {
-    const [sh,sm] = s.split(':').map(Number);
-    const [eh,em] = e.split(':').map(Number);
-    const mins = (eh*60+em) - (sh*60+sm);
+    const [sh,sm] = s.split(':').map(Number), [eh,em] = e.split(':').map(Number);
+    const mins = (eh*60+em)-(sh*60+sm);
     const hrs = Math.floor(mins/60), mn = mins%60;
-    document.getElementById('pill-duration').textContent = `⏱ ${hrs > 0 ? hrs+'h ' : ''}${mn > 0 ? mn+'m ' : ''}shift`;
+    document.getElementById('pill-hours').textContent = `⏱ ${hrs>0?hrs+'h ':''}${mn>0?mn+'m':''}`;
   }
-}
-updateShiftDisplay();
 
-// ──────────────────────────────────────────────
-//  CATEGORIES
-// ──────────────────────────────────────────────
+  const sHour = timeToHour(s), eHour = timeToHour(e);
+  const pmS = peakMultiplier(sHour, CONFIG.PEAK_PICKUP_HOUR);
+  const pmE = peakMultiplier(eHour, CONFIG.PEAK_DROP_HOUR);
+  const lS  = pctLabel(pmS), lE = pctLabel(pmE);
+
+  document.getElementById('peak-indicators').innerHTML = `
+    <div style="background:${lS.bg};border:1px solid ${lS.border};border-radius:8px;padding:9px 13px;font-size:12px">
+      <div style="font-weight:700;color:var(--text2);margin-bottom:2px">Pickup at ${fmtTime(s)}</div>
+      <div style="color:${lS.color};font-weight:600;font-family:'DM Mono',monospace">${lS.text} · ${pmS.toFixed(2)}× rate</div>
+    </div>
+    <div style="background:${lE.bg};border:1px solid ${lE.border};border-radius:8px;padding:9px 13px;font-size:12px">
+      <div style="font-weight:700;color:var(--text2);margin-bottom:2px">Drop at ${fmtTime(e)}</div>
+      <div style="color:${lE.color};font-weight:600;font-family:'DM Mono',monospace">${lE.text} · ${pmE.toFixed(2)}× rate</div>
+    </div>
+  `;
+  recalculate();
+}
+updateShift();
+
+// ── CATEGORIES
 function addCategory(name='', dist=15, solo=false, count=10) {
   const id = ++catIdCounter;
-  categories.push({ id, name, dist, solo, count });
-  renderCategories();
-  recalculate();
+  categories.push({id,name,dist,solo,count});
+  renderCategories(); recalculate();
 }
-
 function removeCategory(id) {
-  categories = categories.filter(c => c.id !== id);
-  renderCategories();
-  recalculate();
+  categories = categories.filter(c=>c.id!==id);
+  renderCategories(); recalculate();
 }
-
 function updateCat(id, field, val) {
-  const cat = categories.find(c => c.id === id);
+  const cat = categories.find(c=>c.id===id);
   if (!cat) return;
-  if (field === 'dist' || field === 'count') val = parseFloat(val) || 0;
-  if (field === 'solo') val = !!val;
-  cat[field] = val;
-  recalculate();
+  if (field==='dist'||field==='count') val = parseFloat(val)||0;
+  cat[field] = val; recalculate();
 }
-
 function toggleSolo(id) {
-  const cat = categories.find(c => c.id === id);
+  const cat = categories.find(c=>c.id===id);
   if (!cat) return;
   cat.solo = !cat.solo;
-  const tw = document.getElementById(`toggle-${id}`);
-  tw.classList.toggle('on', cat.solo);
-  const badge = document.getElementById(`badge-${id}`);
-  badge.textContent = cat.solo ? 'Solo' : 'Shared';
-  badge.className = 'toggle-badge ' + (cat.solo ? 'solo' : 'shared');
+  document.getElementById(`toggle-${id}`).classList.toggle('on', cat.solo);
+  const b = document.getElementById(`badge-${id}`);
+  b.textContent = cat.solo ? 'Solo' : 'Shared';
+  b.className = 'toggle-badge ' + (cat.solo?'solo':'shared');
   recalculate();
+}
+
+function catCostPerTrip(cat, pkMult) {
+  // (fixed base + variable km) × solo_mult × peak_mult
+  return (CONFIG.BASE_FIXED_COST + cat.dist * CONFIG.RATE_PER_KM)
+    * (cat.solo ? CONFIG.SOLO_MULTIPLIER : 1)
+    * pkMult;
+}
+function catMonthly(cat) {
+  const s = document.getElementById('shift-start').value;
+  const e = document.getElementById('shift-end').value;
+  const pmPickup = peakMultiplier(timeToHour(s), CONFIG.PEAK_PICKUP_HOUR);
+  const pmDrop   = peakMultiplier(timeToHour(e), CONFIG.PEAK_DROP_HOUR);
+  const avgPeak  = (pmPickup + pmDrop) / 2;
+  const daysPerMonth = selectedDays.length * 4.33;
+  return Math.round(catCostPerTrip(cat, avgPeak) * 2 * daysPerMonth * (cat.count||0));
 }
 
 function renderCategories() {
   const wrap = document.getElementById('categories-wrap');
   if (categories.length === 0) {
-    wrap.innerHTML = `<div class="empty-hint"><div class="emoji">👥</div><p>No employee categories yet.<br>Click "Add Employee Category" to get started.</p></div>`;
+    wrap.innerHTML = `<div style="text-align:center;padding:24px;color:var(--text3);font-size:13px"><div style="font-size:26px;margin-bottom:8px">👥</div>No categories yet. Click below to add one.</div>`;
     return;
   }
   wrap.innerHTML = '';
-  categories.forEach((cat, idx) => {
+  categories.forEach((cat,idx) => {
     const div = document.createElement('div');
     div.className = 'category-card';
+    const mc = catMonthly(cat);
+    const s = document.getElementById('shift-start').value;
+    const e = document.getElementById('shift-end').value;
+    const avgPeak = (peakMultiplier(timeToHour(s),CONFIG.PEAK_PICKUP_HOUR)+peakMultiplier(timeToHour(e),CONFIG.PEAK_DROP_HOUR))/2;
     div.innerHTML = `
       <div class="cat-header">
         <div class="cat-num">${idx+1}</div>
-        <input class="cat-name-input" type="text" placeholder="Category name e.g. Zone A – IT Team"
+        <input class="cat-name-input" type="text" placeholder="Zone name e.g. Sector 62 – IT Team"
           value="${cat.name}" oninput="updateCat(${cat.id},'name',this.value)">
-        ${categories.length > 1 ? `
-        <div class="cat-delete" onclick="removeCategory(${cat.id})" title="Remove">
-          <svg fill="none" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
-        </div>` : ''}
+        ${categories.length>1?`<div class="cat-delete" onclick="removeCategory(${cat.id})"><svg fill="none" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg></div>`:''}
       </div>
       <div class="cat-fields">
         <div class="form-group">
           <label>Distance from Office (km)</label>
-          <input type="number" min="1" max="100" step="0.5" value="${cat.dist}"
-            oninput="updateCat(${cat.id},'dist',this.value)">
+          <input type="number" min="1" max="150" step="0.5" value="${cat.dist}" oninput="updateCat(${cat.id},'dist',this.value)">
         </div>
         <div class="form-group">
           <label>No. of Employees</label>
-          <input type="number" min="1" max="500" step="1" value="${cat.count}"
-            oninput="updateCat(${cat.id},'count',this.value)">
+          <input type="number" min="1" max="1000" step="1" value="${cat.count}" oninput="updateCat(${cat.id},'count',this.value)">
         </div>
         <div class="form-group">
           <label>Travel Type</label>
-          <div class="toggle-group" style="padding-top:6px;">
-            <div class="toggle-wrap ${cat.solo?'on':''}" id="toggle-${cat.id}" onclick="toggleSolo(${cat.id})">
-              <div class="toggle-knob"></div>
-            </div>
-            <span class="toggle-label">Solo ride</span>
+          <div class="toggle-group" style="padding-top:5px">
+            <div class="toggle-wrap ${cat.solo?'on':''}" id="toggle-${cat.id}" onclick="toggleSolo(${cat.id})"><div class="toggle-knob"></div></div>
+            <span style="font-size:12px;color:var(--text2)">Solo</span>
             <span class="toggle-badge ${cat.solo?'solo':'shared'}" id="badge-${cat.id}">${cat.solo?'Solo':'Shared'}</span>
           </div>
         </div>
       </div>
-      <div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;">
-        <span style="font-size:11px;color:var(--text3);">
-          ${cat.dist > 0 ? `${cat.dist} km × ₹${BASE_RATE}/km × ${cat.solo?'1.4× solo':'1× shared'} × 2 trips/day` : '—'}
-        </span>
-        <span style="font-family:'DM Mono',monospace;font-size:12px;font-weight:600;color:var(--teal);" id="cat-cost-${cat.id}">
-          ${catMonthlyCost(cat) > 0 ? '₹' + catMonthlyCost(cat).toLocaleString('en-IN') + '/mo' : '—'}
-        </span>
+      <div class="cat-footer">
+        <span class="cat-formula">(₹${CONFIG.BASE_FIXED_COST} base + ${cat.dist}km × ₹${CONFIG.RATE_PER_KM}) × ${cat.solo?CONFIG.SOLO_MULTIPLIER+'× solo':'1×'} × ${avgPeak.toFixed(2)}× peak × 2 trips × ${selectedDays.length * 4.33|0} days × ${cat.count} emp</span>
+        <span class="cat-cost" id="cat-cost-${cat.id}">${mc>0?'₹'+mc.toLocaleString('en-IN')+'/mo':'—'}</span>
       </div>
     `;
     wrap.appendChild(div);
   });
 }
-
-function catMonthlyCost(cat) {
-  if (!cat.dist || !cat.count) return 0;
-  const mult = cat.solo ? SOLO_MULTIPLIER : 1;
-  const tripsPerDay = 2; // pickup + drop
-  const workingDays = selectedDays.length * 4.33; // avg weeks per month
-  return Math.round(cat.dist * BASE_RATE * mult * tripsPerDay * workingDays * cat.count);
-}
-
-// Add default category on load
-addCategory('Zone A – Main Office Area', 15, false, 20);
+addCategory('Zone A – Main Area', 15, false, 20);
 addCategory('Zone B – Outskirts', 28, false, 8);
 
-// ──────────────────────────────────────────────
-//  PLAN
-// ──────────────────────────────────────────────
-const PLAN_DISCOUNTS = { 1: 0, 3: 0.05, 6: 0.10 };
-
+// ── PLAN
 function selectPlan(el, months) {
-  document.querySelectorAll('.plan-opt').forEach(p => p.classList.remove('selected'));
+  document.querySelectorAll('.plan-opt').forEach(p=>p.classList.remove('selected'));
   el.classList.add('selected');
   selectedPlan = months;
-  planDiscount = PLAN_DISCOUNTS[months] || 0;
   resetCoupon();
   recalculate();
 }
 
-// ──────────────────────────────────────────────
-//  COUPON
-// ──────────────────────────────────────────────
+// ── COUPON
 function applyCoupon() {
   const code = document.getElementById('coupon-input').value.trim().toUpperCase();
   const status = document.getElementById('coupon-status');
-  const coupon = VALID_COUPONS[code];
-
+  const coupon = CONFIG.COUPONS[code];
   if (!coupon) {
-    status.style.display = 'block';
-    status.className = 'coupon-status invalid';
-    status.textContent = '✗ Invalid coupon code. Try ZENO10 for 10% off on 3-month plan.';
-    couponApplied = false;
-    couponDiscount = 0;
-  } else if (!coupon.plans.includes(selectedPlan)) {
-    status.style.display = 'block';
-    status.className = 'coupon-status invalid';
-    status.textContent = `✗ This coupon is only valid for the ${coupon.plans.map(p=>p+'-month').join(' or ')} plan. Please select that plan first.`;
-    couponApplied = false;
-    couponDiscount = 0;
+    status.style.display='block'; status.className='coupon-status invalid';
+    status.textContent='✗ Invalid coupon code.';
+    couponApplied=false; couponDiscount=0;
+  } else if (!coupon.validPlans.includes(selectedPlan)) {
+    status.style.display='block'; status.className='coupon-status invalid';
+    status.textContent=`✗ This coupon is valid only for ${coupon.validPlans.map(p=>p+'-month').join(' or ')} plan.`;
+    couponApplied=false; couponDiscount=0;
   } else {
-    status.style.display = 'block';
-    status.className = 'coupon-status valid';
-    status.textContent = '✓ ' + coupon.desc;
-    couponApplied = true;
-    couponDiscount = coupon.discount;
+    status.style.display='block'; status.className='coupon-status valid';
+    status.textContent='✓ ' + coupon.desc;
+    couponApplied=true; couponDiscount=coupon.discount;
   }
   recalculate();
 }
-
 function resetCoupon() {
   if (couponApplied) {
-    couponApplied = false;
-    couponDiscount = 0;
-    document.getElementById('coupon-status').style.display = 'none';
+    couponApplied=false; couponDiscount=0;
+    document.getElementById('coupon-status').style.display='none';
     recalculate();
   }
 }
 
-// ──────────────────────────────────────────────
-//  CALCULATE
-// ──────────────────────────────────────────────
-function fmt(n) {
-  return '₹' + Math.round(n).toLocaleString('en-IN');
+// ── DETAILS TOGGLE
+function openDetails() {
+  const body = document.getElementById('details-body');
+  const toggle = document.getElementById('details-toggle');
+  body.classList.add('open'); toggle.classList.add('open');
+}
+function toggleDetails() {
+  const body = document.getElementById('details-body');
+  const toggle = document.getElementById('details-toggle');
+  body.classList.toggle('open'); toggle.classList.toggle('open');
 }
 
+// ── CALCULATE
+function fmt(n) { return '₹' + Math.round(n).toLocaleString('en-IN'); }
 function recalculate() {
-  const baseMonthly = categories.reduce((sum, c) => sum + catMonthlyCost(c), 0);
-  const totalEmps = categories.reduce((sum, c) => sum + (parseInt(c.count)||0), 0);
+  renderCategories();
+  const base = categories.reduce((s,c)=>s+catMonthly(c), 0);
+  const totalEmps = categories.reduce((s,c)=>s+(parseInt(c.count)||0), 0);
+  const planDisc = CONFIG.PLAN_DISCOUNTS[selectedPlan] || 0;
+  const totalDisc = Math.min(planDisc + (couponApplied?couponDiscount:0), 0.40);
+  const discAmt = base * totalDisc;
+  const afterDisc = base - discAmt;
+  const gstAmt = afterDisc * CONFIG.GST_RATE;
+  const total = afterDisc + gstAmt;
+  const perEmp = totalEmps > 0 ? total/totalEmps : 0;
 
-  // Combined discount: plan discount OR coupon discount (take higher, not stack)
-  const totalDiscountFrac = Math.max(planDiscount, couponApplied ? couponDiscount : 0) + (planDiscount > 0 && couponApplied ? Math.min(planDiscount, couponDiscount) * 0 : 0);
-  // Actually: plan discount + coupon are independent — coupon replaces nothing if plan already gives more
-  // Simple rule: coupon gives 10% on top of 0% (monthly plan only valid), plan gives 5%/10%
-  // Let coupon stack additively with plan only if different
-  let effectiveDiscount = planDiscount + (couponApplied ? couponDiscount : 0);
-  effectiveDiscount = Math.min(effectiveDiscount, 0.30); // cap at 30%
+  const planNames = {1:'Monthly',3:'Quarterly',6:'Half-Yearly',12:'Yearly'};
 
-  const discountAmt = baseMonthly * effectiveDiscount;
-  const afterDiscount = baseMonthly - discountAmt;
-  const gstAmt = afterDiscount * GST;
-  const total = afterDiscount + gstAmt;
-  const perEmp = totalEmps > 0 ? total / totalEmps : 0;
-
-  document.getElementById('sticky-base').textContent = fmt(baseMonthly) + '/mo';
-  document.getElementById('sticky-emp-count').textContent =
-    `${totalEmps} employee${totalEmps!==1?'s':''} · ${categories.length} categor${categories.length!==1?'ies':'y'}`;
-
-  document.getElementById('sticky-discount').textContent =
-    effectiveDiscount > 0 ? `−${fmt(discountAmt)} (${Math.round(effectiveDiscount*100)}%)` : '—';
-
-  document.getElementById('sticky-gst').textContent =
-    baseMonthly > 0 ? fmt(gstAmt) : '—';
-
-  document.getElementById('sticky-total').textContent = fmt(total);
-  document.getElementById('sticky-per-emp').textContent =
-    totalEmps > 0 ? `${fmt(perEmp)} per employee/mo` : 'Add employees to calculate';
-
-  // Update individual cat costs
-  categories.forEach(cat => {
-    const el = document.getElementById(`cat-cost-${cat.id}`);
-    if (el) {
-      const c = catMonthlyCost(cat);
-      el.textContent = c > 0 ? fmt(c) + '/mo' : '—';
-    }
-  });
+  document.getElementById('cs-base').textContent = fmt(base);
+  document.getElementById('cs-empcount').textContent = `${totalEmps} emp · ${categories.length} zone${categories.length!==1?'s':''}`;
+  document.getElementById('cs-discount').textContent = totalDisc>0 ? '−'+fmt(discAmt) : '—';
+  document.getElementById('cs-discount-pct').textContent = totalDisc>0 ? `${Math.round(totalDisc*100)}% off` : '';
+  document.getElementById('cs-after').textContent = fmt(afterDisc);
+  document.getElementById('cs-planname').textContent = planNames[selectedPlan]||'';
+  document.getElementById('cs-gst').textContent = base>0 ? fmt(gstAmt) : '—';
+  document.getElementById('cs-total').textContent = fmt(total);
+  document.getElementById('cs-peremp').textContent = totalEmps>0 ? fmt(perEmp)+'/emp/mo' : '—';
 }
-
 recalculate();
+
+// ── SUBMIT
+async function submitQuote() {
+  const name    = document.getElementById('contact-name').value.trim();
+  const email   = document.getElementById('contact-email').value.trim();
+  const phone   = document.getElementById('contact-phone').value.trim();
+  const company = document.getElementById('contact-company').value.trim();
+  const status  = document.getElementById('submit-status');
+
+  if (!name || !email || !phone) {
+    status.style.display='block'; status.className='submit-status err';
+    status.textContent='✗ Please fill in your name, email, and phone number.'; return;
+  }
+  if (!/\S+@\S+\.\S+/.test(email)) {
+    status.style.display='block'; status.className='submit-status err';
+    status.textContent='✗ Please enter a valid email address.'; return;
+  }
+
+  // Build summary
+  const base = categories.reduce((s,c)=>s+catMonthly(c), 0);
+  const planDisc = CONFIG.PLAN_DISCOUNTS[selectedPlan]||0;
+  const totalDisc = Math.min(planDisc+(couponApplied?couponDiscount:0),0.40);
+  const afterDisc = base*(1-totalDisc);
+  const total = afterDisc*(1+CONFIG.GST_RATE);
+  const planNames = {1:'Monthly',3:'Quarterly',6:'Half-Yearly',12:'Yearly'};
+  const totalEmps = categories.reduce((s,c)=>s+(parseInt(c.count)||0),0);
+
+  const catSummary = categories.map((c,i)=>
+    `Category ${i+1}: ${c.name||'Unnamed'} | ${c.count} employees | ${c.dist}km | ${c.solo?'Solo':'Shared'} | ₹${catMonthly(c).toLocaleString('en-IN')}/mo`
+  ).join('\n');
+
+  const shiftStart = document.getElementById('shift-start').value;
+  const shiftEnd   = document.getElementById('shift-end').value;
+
+  const payload = {
+    name, email, phone, company,
+    shiftStart: fmtTime(shiftStart),
+    shiftEnd:   fmtTime(shiftEnd),
+    workingDays: selectedDays.map(d=>DAY_NAMES[d]).join(', '),
+    plan: planNames[selectedPlan],
+    coupon: couponApplied ? document.getElementById('coupon-input').value.trim().toUpperCase() : 'None',
+    totalEmployees: totalEmps,
+    monthlyBase: fmt(base),
+    discountPct: Math.round(totalDisc*100)+'%',
+    gstInclTotal: fmt(total),
+    categorySummary: catSummary,
+  };
+
+  const btn = document.getElementById('submit-btn');
+  btn.disabled = true; btn.textContent = 'Sending…';
+
+  try {
+    const res = await fetch('/api/send-quote', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify(payload),
+    });
+    if (res.ok) {
+      status.style.display='block'; status.className='submit-status ok';
+      status.textContent='✓ Quote submitted! Our team will reach out to you within 24 hours.';
+      btn.textContent='✅ Submitted';
+    } else {
+      throw new Error('Server error');
+    }
+  } catch(err) {
+    // Fallback: open mail client with pre-filled details
+    const subject = encodeURIComponent(`Zenoway Transport Quote – ${company||name}`);
+    const body = encodeURIComponent(
+      `New pricing enquiry from Zenoway calculator\n\n` +
+      `Name: ${name}\nEmail: ${email}\nPhone: ${phone}\nCompany: ${company||'—'}\n\n` +
+      `Shift: ${fmtTime(shiftStart)} – ${fmtTime(shiftEnd)}\nWorking days: ${selectedDays.map(d=>DAY_NAMES[d]).join(', ')}\n` +
+      `Plan: ${planNames[selectedPlan]}\nCoupon: ${couponApplied?document.getElementById('coupon-input').value.trim().toUpperCase():'None'}\n\n` +
+      `Total employees: ${totalEmps}\nEstimated monthly (GST incl.): ${fmt(total)}\n\nCategories:\n${catSummary}`
+    );
+    window.location.href = `mailto:${CONFIG.CONTACT_EMAIL}?subject=${subject}&body=${body}`;
+    status.style.display='block'; status.className='submit-status ok';
+    status.textContent='✓ Opening your email client with the quote details pre-filled.';
+    btn.textContent='✅ Submitted'; btn.disabled=false;
+  }
+}
 </script>
 </body>
 </html>

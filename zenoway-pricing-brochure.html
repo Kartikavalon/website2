@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Zenoway — Pricing Brochure</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+@page { size: A4; margin: 0; }
+*,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'DM Sans', sans-serif; background: #fff; color: #0B1F3A; width: 210mm; }
+
+/* ── COVER SECTION ── */
+.cover {
+  background: #0B1F3A;
+  padding: 52px 48px 44px;
+  position: relative;
+  overflow: hidden;
+}
+.cover::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image: radial-gradient(circle, rgba(0,150,136,.18) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+.cover::after {
+  content: '';
+  position: absolute;
+  width: 500px; height: 500px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(0,191,165,.1) 0%, transparent 65%);
+  top: -100px; right: -100px;
+}
+.cover-inner { position: relative; z-index: 1; }
+.logo-row { display: flex; align-items: center; gap: 12px; margin-bottom: 44px; }
+.logo-mark {
+  width: 40px; height: 40px; border-radius: 10px;
+  background: rgba(0,191,165,.15); border: 1px solid rgba(0,191,165,.3);
+  display: flex; align-items: center; justify-content: center;
+}
+.logo-text { font-family: 'Sora', sans-serif; font-size: 22px; font-weight: 800; color: #fff; }
+.logo-text span { color: #00BFA5; }
+.cover-tag {
+  display: inline-block;
+  background: rgba(0,191,165,.12); border: 1px solid rgba(0,191,165,.25);
+  color: #00BFA5; font-size: 10px; font-weight: 700;
+  padding: 4px 12px; border-radius: 100px; letter-spacing: 1px;
+  font-family: 'DM Mono', monospace; margin-bottom: 16px;
+}
+.cover-title { font-family: 'Sora', sans-serif; font-size: 36px; font-weight: 800; color: #fff; line-height: 1.15; margin-bottom: 12px; }
+.cover-title span { color: #00BFA5; }
+.cover-sub { font-size: 14px; color: rgba(255,255,255,.55); line-height: 1.6; max-width: 480px; margin-bottom: 36px; }
+.cover-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+.cover-stat {
+  background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1);
+  border-radius: 10px; padding: 14px 16px;
+}
+.cs-num { font-family: 'Sora', sans-serif; font-size: 22px; font-weight: 800; color: #00BFA5; }
+.cs-lbl { font-size: 11px; color: rgba(255,255,255,.4); margin-top: 2px; }
+
+/* ── CONTENT ── */
+.section { padding: 40px 48px; border-bottom: 1px solid #E8EDF3; }
+.section:last-child { border-bottom: none; }
+.section-tag {
+  font-size: 9px; font-weight: 700; color: #009688; letter-spacing: 1.5px;
+  text-transform: uppercase; font-family: 'DM Mono', monospace; margin-bottom: 6px;
+}
+.section-title { font-family: 'Sora', sans-serif; font-size: 20px; font-weight: 800; color: #0B1F3A; margin-bottom: 6px; }
+.section-sub { font-size: 13px; color: #7A92AD; margin-bottom: 28px; }
+
+/* ── PRICING CARDS ── */
+.pricing-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin-bottom: 20px; }
+.price-card {
+  border: 1.5px solid #D4DDE8; border-radius: 12px;
+  padding: 20px; position: relative; background: #F8FAFB;
+}
+.price-card.featured { border-color: #009688; background: #E0F2F1; }
+.price-card .badge {
+  position: absolute; top: -10px; left: 20px;
+  background: #009688; color: #fff;
+  font-size: 9px; font-weight: 700; padding: 2px 10px;
+  border-radius: 100px; font-family: 'DM Mono', monospace;
+}
+.price-plan { font-family: 'Sora', sans-serif; font-size: 14px; font-weight: 700; color: #0B1F3A; margin-bottom: 2px; }
+.price-duration { font-size: 11px; color: #7A92AD; margin-bottom: 10px; }
+.price-rate { font-family: 'Sora', sans-serif; font-size: 13px; font-weight: 600; }
+.price-rate.on { color: #1B5E20; }
+.price-save { margin-top: 6px; font-size: 11px; color: #009688; font-weight: 600; }
+
+/* ── RATE TABLE ── */
+.rate-table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+.rate-table th { background: #0B1F3A; color: rgba(255,255,255,.8); font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .8px; padding: 10px 14px; text-align: left; }
+.rate-table th:first-child { border-radius: 8px 0 0 8px; }
+.rate-table th:last-child { border-radius: 0 8px 8px 0; }
+.rate-table td { padding: 10px 14px; font-size: 13px; border-bottom: 1px solid #E8EDF3; color: #3E5676; }
+.rate-table tr:last-child td { border-bottom: none; }
+.rate-table tr:hover td { background: #F8FAFB; }
+.rate-table .mono { font-family: 'DM Mono', monospace; font-size: 12px; }
+.rate-table .highlight { color: #009688; font-weight: 700; }
+
+/* ── PEAK TIMING ── */
+.peak-section { background: #F0F4F8; border-radius: 12px; padding: 20px; margin-bottom: 20px; }
+.peak-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 14px; }
+.peak-item { background: #fff; border-radius: 8px; padding: 12px; text-align: center; border: 1px solid #D4DDE8; }
+.peak-item.best { border-color: #A5D6A7; background: #E8F5E9; }
+.peak-item.worst { border-color: #FFB74D; background: #FFF3E0; }
+.peak-time { font-family: 'DM Mono', monospace; font-size: 13px; font-weight: 600; color: #0B1F3A; }
+.peak-mult { font-size: 11px; font-weight: 700; margin-top: 3px; }
+.peak-mult.best { color: #1B5E20; }
+.peak-mult.ok { color: #0D47A1; }
+.peak-mult.worst { color: #E65100; }
+
+/* ── FORMULA BOX ── */
+.formula-box {
+  background: #0B1F3A; border-radius: 12px;
+  padding: 20px 24px; margin-bottom: 20px;
+}
+.formula-label { font-size: 9px; font-weight: 700; color: rgba(255,255,255,.35); letter-spacing: 1px; text-transform: uppercase; font-family: 'DM Mono', monospace; margin-bottom: 10px; }
+.formula-text { font-family: 'DM Mono', monospace; font-size: 12px; color: #00BFA5; line-height: 1.8; }
+.formula-text .dim { color: rgba(255,255,255,.35); }
+
+/* ── FEATURES ── */
+.features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.feature-item { border: 1px solid #D4DDE8; border-radius: 10px; padding: 16px; }
+.feature-icon { font-size: 20px; margin-bottom: 8px; }
+.feature-title { font-family: 'Sora', sans-serif; font-size: 12px; font-weight: 700; color: #0B1F3A; margin-bottom: 4px; }
+.feature-desc { font-size: 11px; color: #7A92AD; line-height: 1.5; }
+
+/* ── EXAMPLE BOX ── */
+.example-box { background: #F0F4F8; border-radius: 12px; padding: 20px 24px; }
+.example-title { font-family: 'Sora', sans-serif; font-size: 13px; font-weight: 700; color: #0B1F3A; margin-bottom: 12px; }
+.example-line { display: flex; justify-content: space-between; padding: 5px 0; border-bottom: 1px solid #D4DDE8; font-size: 12px; }
+.example-line:last-child { border-bottom: none; padding-top: 10px; }
+.example-line.total { font-family: 'Sora', sans-serif; font-weight: 700; font-size: 14px; color: #0B1F3A; }
+.example-line.total span:last-child { color: #009688; }
+.example-key { color: #7A92AD; }
+.example-val { font-family: 'DM Mono', monospace; color: #0B1F3A; font-weight: 600; }
+
+/* ── CTA ── */
+.cta-section {
+  background: linear-gradient(135deg, #0B1F3A 0%, #1C3A65 100%);
+  padding: 40px 48px; text-align: center;
+}
+.cta-title { font-family: 'Sora', sans-serif; font-size: 22px; font-weight: 800; color: #fff; margin-bottom: 8px; }
+.cta-sub { font-size: 13px; color: rgba(255,255,255,.5); margin-bottom: 24px; }
+.cta-info { display: flex; justify-content: center; gap: 32px; }
+.cta-item { text-align: center; }
+.cta-item-label { font-size: 10px; color: rgba(255,255,255,.35); font-family: 'DM Mono', monospace; letter-spacing: .8px; text-transform: uppercase; margin-bottom: 3px; }
+.cta-item-val { font-size: 14px; font-weight: 600; color: #00BFA5; }
+
+/* Print */
+@media print {
+  body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .section { page-break-inside: avoid; }
+}
+</style>
+</head>
+<body>
+
+<!-- COVER -->
+<div class="cover">
+  <div class="cover-inner">
+    <div class="logo-row">
+      <div class="logo-mark">
+        <svg width="20" height="20" viewBox="0 0 34 34" fill="none">
+          <path d="M6 11H28L10 23H28" stroke="#00BFA5" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M22 19.5L28 23.5L22 27" stroke="#009688" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        </svg>
+      </div>
+      <span class="logo-text">Zeno<span>Way</span></span>
+    </div>
+    <div class="cover-tag">ENTERPRISE TRANSPORT PRICING</div>
+    <div class="cover-title">Smart, Transparent<br><span>Employee Transport</span><br>Pricing</div>
+    <div class="cover-sub">GPS-verified billing. Peak-hour optimised rates. No hidden charges. Every rupee accounted for — so your HR team always knows exactly what they're paying for.</div>
+    <div class="cover-stats">
+      <div class="cover-stat"><div class="cs-num">₹18</div><div class="cs-lbl">Per km (base rate)</div></div>
+      <div class="cover-stat"><div class="cs-num">18%</div><div class="cs-lbl">GST transparent</div></div>
+      <div class="cover-stat"><div class="cs-num">15%</div><div class="cs-lbl">Max yearly saving</div></div>
+      <div class="cover-stat"><div class="cs-num">100%</div><div class="cs-lbl">GPS verified</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 1: HOW PRICING WORKS -->
+<div class="section">
+  <div class="section-tag">PRICING STRUCTURE</div>
+  <div class="section-title">Two-part cost model</div>
+  <div class="section-sub">Every trip has a fixed base charge plus a variable distance-based component.</div>
+
+  <div class="formula-box">
+    <div class="formula-label">Cost per trip formula</div>
+    <div class="formula-text">
+      Trip Cost = <span style="color:#FFD54F">(₹80 base</span> + <span style="color:#FFD54F">distance × ₹18/km)</span><br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;× <span style="color:#80DEEA">solo_multiplier</span> <span class="dim">(1.0× shared | 1.4× solo)</span><br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;× <span style="color:#CE93D8">peak_multiplier</span> <span class="dim">(0.70× – 1.00×)</span><br><br>
+      Monthly = Trip Cost × 2 trips/day × working_days × employees
+    </div>
+  </div>
+
+  <div class="features-grid">
+    <div class="feature-item">
+      <div class="feature-icon">📍</div>
+      <div class="feature-title">Fixed Base ₹80/trip</div>
+      <div class="feature-desc">Minimum viable trip cost. Ensures short-distance pickups remain operationally sustainable.</div>
+    </div>
+    <div class="feature-item">
+      <div class="feature-icon">🛣️</div>
+      <div class="feature-title">₹18/km Variable</div>
+      <div class="feature-desc">GPS-verified distance. You pay only for actual km driven — no estimates, no inflated odometers.</div>
+    </div>
+    <div class="feature-item">
+      <div class="feature-icon">🚗</div>
+      <div class="feature-title">Solo Premium 1.4×</div>
+      <div class="feature-desc">Exclusive cab for one employee. Vehicle reserved, no co-passengers — priced accordingly.</div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 2: PEAK HOUR PRICING -->
+<div class="section">
+  <div class="section-tag">PEAK HOUR LOGIC</div>
+  <div class="section-title">Off-peak timing = lower rates</div>
+  <div class="section-sub">Peak demand is 10:00 AM pickup / 6:00 PM drop. The farther your timings deviate, the cheaper your rate — down to a 30% maximum discount.</div>
+
+  <div class="peak-section">
+    <div style="font-size:12px;font-weight:600;color:#3E5676;margin-bottom:4px">Pickup Rate by Office Start Time <span style="font-weight:400;color:#7A92AD">(Peak = 10:00 AM)</span></div>
+    <div class="peak-grid">
+      <div class="peak-item worst">
+        <div class="peak-time">10:00 AM</div>
+        <div class="peak-mult worst">1.00× — Peak rate</div>
+      </div>
+      <div class="peak-item">
+        <div class="peak-time">9:00 AM</div>
+        <div class="peak-mult ok">0.96× — 4% off</div>
+      </div>
+      <div class="peak-item">
+        <div class="peak-time">8:00 AM</div>
+        <div class="peak-mult ok">0.92× — 8% off</div>
+      </div>
+      <div class="peak-item">
+        <div class="peak-time">7:00 AM</div>
+        <div class="peak-mult best">0.88× — 12% off</div>
+      </div>
+      <div class="peak-item">
+        <div class="peak-time">11:00 AM</div>
+        <div class="peak-mult ok">0.96× — 4% off</div>
+      </div>
+      <div class="peak-item best">
+        <div class="peak-time">2:00 AM+</div>
+        <div class="peak-mult best">0.70× — Max 30% off</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 3: PLANS -->
+<div class="section">
+  <div class="section-tag">COMMITMENT PLANS</div>
+  <div class="section-title">Save more, commit longer</div>
+  <div class="section-sub">All discounts apply to the monthly base before GST. Plans are billed monthly.</div>
+
+  <div class="pricing-grid">
+    <div class="price-card">
+      <div class="price-plan">Monthly</div>
+      <div class="price-duration">Pay month to month · No lock-in</div>
+      <div class="price-rate">Standard rate</div>
+      <div class="price-save">Full flexibility</div>
+    </div>
+    <div class="price-card">
+      <div class="price-plan">Quarterly</div>
+      <div class="price-duration">3-month commitment</div>
+      <div class="price-rate on">5% off monthly base</div>
+      <div class="price-save">Coupon codes valid on this plan</div>
+    </div>
+    <div class="price-card featured">
+      <div class="badge">POPULAR</div>
+      <div class="price-plan">Half-Yearly</div>
+      <div class="price-duration">6-month commitment</div>
+      <div class="price-rate on">10% off monthly base</div>
+      <div class="price-save">Best balance of savings + flexibility</div>
+    </div>
+    <div class="price-card">
+      <div class="price-plan">Yearly</div>
+      <div class="price-duration">12-month commitment</div>
+      <div class="price-rate on">15% off monthly base</div>
+      <div class="price-save">Maximum savings</div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 4: EXAMPLE -->
+<div class="section">
+  <div class="section-tag">PRICING EXAMPLE</div>
+  <div class="section-title">Sample calculation</div>
+  <div class="section-sub">A mid-sized company with two employee zones on a half-yearly plan.</div>
+
+  <div class="example-box">
+    <div class="example-title">Acme Technologies · 28 employees · 5-day week · 9 AM–6 PM</div>
+    <div class="example-line"><span class="example-key">Zone A (15km, 20 emp, shared, 0.98× peak)</span><span class="example-val">₹2,29,476/mo</span></div>
+    <div class="example-line"><span class="example-key">Zone B (28km, 8 emp, shared, 0.98× peak)</span><span class="example-val">₹1,54,430/mo</span></div>
+    <div class="example-line"><span class="example-key">Monthly base total</span><span class="example-val">₹3,83,906</span></div>
+    <div class="example-line"><span class="example-key">Half-yearly plan discount (10%)</span><span class="example-val" style="color:#E65100">−₹38,391</span></div>
+    <div class="example-line"><span class="example-key">Net after discount</span><span class="example-val">₹3,45,515</span></div>
+    <div class="example-line"><span class="example-key">GST @ 18%</span><span class="example-val">+₹62,193</span></div>
+    <div class="example-line total"><span>Total per month (GST inclusive)</span><span>₹4,07,708</span></div>
+    <div class="example-line"><span class="example-key">Per employee per month</span><span class="example-val" style="color:#009688">₹14,561</span></div>
+  </div>
+</div>
+
+<!-- SECTION 5: RATE TABLE -->
+<div class="section">
+  <div class="section-tag">QUICK REFERENCE</div>
+  <div class="section-title">Distance vs monthly cost guide</div>
+  <div class="section-sub">Per employee, per month. Shared cab, 5-day week, peak timings. GST not included.</div>
+
+  <table class="rate-table">
+    <thead>
+      <tr><th>Distance</th><th>Trip cost (shared)</th><th>Trip cost (solo)</th><th>Monthly / emp (shared)</th><th>Monthly / emp (solo)</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>5 km</td><td class="mono">₹170</td><td class="mono">₹238</td><td class="mono">₹1,473</td><td class="mono highlight">₹2,062</td></tr>
+      <tr><td>10 km</td><td class="mono">₹260</td><td class="mono">₹364</td><td class="mono">₹2,252</td><td class="mono highlight">₹3,153</td></tr>
+      <tr><td>15 km</td><td class="mono">₹350</td><td class="mono">₹490</td><td class="mono">₹3,031</td><td class="mono highlight">₹4,244</td></tr>
+      <tr><td>20 km</td><td class="mono">₹440</td><td class="mono">₹616</td><td class="mono">₹3,811</td><td class="mono highlight">₹5,335</td></tr>
+      <tr><td>30 km</td><td class="mono">₹620</td><td class="mono">₹868</td><td class="mono">₹5,370</td><td class="mono highlight">₹7,517</td></tr>
+      <tr><td>40 km</td><td class="mono">₹800</td><td class="mono">₹1,120</td><td class="mono">₹6,929</td><td class="mono highlight">₹9,700</td></tr>
+      <tr><td>50 km</td><td class="mono">₹980</td><td class="mono">₹1,372</td><td class="mono">₹8,489</td><td class="mono highlight">₹11,884</td></tr>
+    </tbody>
+  </table>
+  <div style="font-size:11px;color:#7A92AD;margin-top:8px">* Based on: ₹80 fixed + ₹18/km. At peak rate (1.0×). 5 days/week × 4.33 weeks × 2 trips/day. Add 18% GST for final amount.</div>
+</div>
+
+<!-- CTA -->
+<div class="cta-section">
+  <div class="cta-title">Get your custom quote in 24 hours</div>
+  <div class="cta-sub">Use the online calculator or reach out directly — our team will build a route plan tailored to your office locations.</div>
+  <div class="cta-info">
+    <div class="cta-item">
+      <div class="cta-item-label">Online Calculator</div>
+      <div class="cta-item-val">portal.zenoway.co.in</div>
+    </div>
+    <div class="cta-item">
+      <div class="cta-item-label">Email</div>
+      <div class="cta-item-val">kartik.g@zenoway.co.in</div>
+    </div>
+    <div class="cta-item">
+      <div class="cta-item-label">Website</div>
+      <div class="cta-item-val">zenoway.co.in</div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
