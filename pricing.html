@@ -543,10 +543,10 @@ select{
 ═══════════════════════════════════════════════════ */
 const CONFIG = {
   // ── Base cost per trip (flat fee regardless of distance)
-  BASE_FIXED_COST: 80,          // ₹ per trip, per vehicle
+  BASE_FIXED_COST: 90,          // ₹ per trip, per vehicle
 
   // ── Variable rate on top of fixed
-  RATE_PER_KM: 18,              // ₹ per km
+  RATE_PER_KM: 16,              // ₹ per km
 
   // ── Solo (exclusive) ride multiplier
   SOLO_MULTIPLIER: 1.4,         // 1.0 = no change, 1.4 = 40% premium
@@ -555,13 +555,13 @@ const CONFIG = {
   PEAK_PICKUP_HOUR: 10,         // 10 = 10:00 AM is most expensive pickup
 
   // ── Peak hour for DROP (24h format, integer hour)
-  PEAK_DROP_HOUR: 18,           // 18 = 6:00 PM is most expensive drop
+  PEAK_DROP_HOUR: 19,           // 19 = 7:00 PM is most expensive drop
 
   // ── How much discount for being off-peak (per hour away from peak)
-  PEAK_DISCOUNT_PER_HOUR: 0.04, // 4% cheaper per hour away from peak
+  PEAK_DISCOUNT_PER_HOUR: 0.03, // 3% cheaper per hour away from peak
 
   // ── Minimum multiplier even if very off-peak (floor)
-  MIN_PEAK_MULTIPLIER: 0.70,    // 70% of standard rate at best
+  MIN_PEAK_MULTIPLIER: 0.88,    // 88% of standard rate at best
 
   // ── GST rate
   GST_RATE: 0.18,               // 18%
@@ -572,8 +572,8 @@ const CONFIG = {
   // ── Valid coupon codes
   // Each coupon: { discount (fraction), desc, validPlans (array of months) }
   COUPONS: {
-    'ZENO10':  { discount: 0.10, desc: '10% off for first 3-month plan!', validPlans: [3] },
-    'ZENOWAY': { discount: 0.10, desc: '10% off for first 3-month plan!', validPlans: [3] },
+    'ZENOKAR':{discount: 0.05, desc: '5% off for first 3-month plan!', validPlans: [1,3,6,12]},
+    'ZENO10':  { discount: 0.10, desc: '10% off for first 3-month plan!', validPlans: [1,3,6,12] },
     'FIRST10': { discount: 0.10, desc: '10% off for first 3-month plan!', validPlans: [3] },
   },
 
